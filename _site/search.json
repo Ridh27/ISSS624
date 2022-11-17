@@ -5,5 +5,12 @@
     "title": "About",
     "section": "",
     "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "Hands-on_Ex1/Hands-on_Ex1.html",
+    "href": "Hands-on_Ex1/Hands-on_Ex1.html",
+    "title": "ISSS624",
+    "section": "",
+    "text": "website: title: “ISSS624” navbar: left: - text: Hands On Exercise menu: - text: Hands-on Exercise 1 href: Hands-on_Ex1/Hands-on_Ex1.qmd\nright:\n  - href: index.qmd\n    text: Home\n  - about.qmd\nformat: html: theme: cosmo css: styles.css toc: true\neditor: visual"
   }
 ]
