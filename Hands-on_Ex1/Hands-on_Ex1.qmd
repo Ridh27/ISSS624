@@ -23,3 +23,125 @@ pacman::p_load(sf,tidyverse)
 
 mpsz= st_read(dsn= "data/geospatial/", layer = "MP14_SUBZONE_WEB_PL")
 ```
+
+```{r}
+cyclingpath = st_read(dsn = "data/geospatial/", 
+                         layer = "CyclingPath")
+```
+
+#### Importing GIS data in kml format
+
+```{r}
+preschool = st_read("data/geospatial/pre-schools-location-kml.kml")
+```
+
+### Checking the content of simple feature data frame
+
+Retrieve information related to the content of a simple feature data frame.
+
+#### st_geometry()
+
+```{r}
+st_geometry(mpsz)
+```
+
+#### glimpse()
+
+```{r}
+glimpse(mpsz)
+```
+
+#### head()
+
+```{r}
+head(mpsz, n=5)  
+```
+
+### Plotting the Geospatial Data
+
+In this section, we will cover interesting visual of geospatial features.
+
+##### Normal(Default) View:
+
+```{r}
+plot(mpsz)
+```
+
+##### Only geometry view:
+
+```{R}
+plot(st_geometry(mpsz))
+```
+
+##### Specific attribute view:
+
+```{r}
+plot(mpsz["PLN_AREA_N"])
+```
+
+### Working with projections
+
+Map projections is important property of geospatial data. We must ensure both geospatial data should be in similar coordinate system.
+
+**Project Transformation:** Project a simple feature data frame from one coordinate system to another coordinate system.
+
+#### Assigning EPSG code to a simple feature data frame
+
+```{r}
+st_crs(mpsz)
+```
+
+We can observe, `mpsz` data frame is projected in svy21 but when we read until the end of the print, it indicates that the EPSG is 9001. This is a wrong EPSG code because the correct EPSG code for svy21 should be \[3414\].
+
+In order to assign the correct EPSG code to `mpsz` data frame:
+
+```{r}
+mpsz3414 <- st_set_crs(mpsz, 3414)
+st_crs(mpsz3414)
+
+```
+
+Now the error has been rectified.
+
+#### Transforming the projection of preschool from wgs84 to svy21.
+
+Transform the original data from geographic coordinate system to projected coordinate system
+
+Transforming preschool data from one coordinate system to another:
+
+```{r}
+st_geometry(preschool) ##Original WGS84
+preschool3414 <- st_transform(preschool, 
+                              crs = 3414)
+st_geometry(preschool3414) #Transformed SVY21
+```
+
+### Importing and Converting An Aspatial Data
+
+In this section, we will learn, how to import an aspatial data into R environment and save it as a tibble data frame.
+
+#### Importing the aspatial data
+
+##We will assume that the data is in wgs84 Geographic Coordinate System.
+
+```{r}
+listings <- read_csv("data/aspatial/listings.csv")
+```
+
+```{r}
+list(listings) 
+```
+
+#### Creating a simple feature data frame from an aspatial data frame
+
+```{r}
+listings_sf <- st_as_sf(listings, 
+                       coords = c("longitude", "latitude"),
+                       crs=4326) %>%
+  st_transform(crs = 3414)
+glimpse(listings_sf)
+```
+
+New column called `geometry` has been added into the data frame. On the other hand, the `longitude` and `latitude` columns have been dropped from the data frame.
+
+### Geoprocessing with sf package
