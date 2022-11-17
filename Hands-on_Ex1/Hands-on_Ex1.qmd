@@ -1,4 +1,4 @@
 ---
-title: "Hands-on_Ex1- Choropleth Mapping with R"
+title: "Hands_on_Ex1- Choropleth Mapping with R"
 editor: visual
 ---
