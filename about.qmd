@@ -4,6 +4,8 @@ title: "About"
 
 About this site
 
-```{r}
-1 + 1
-```
+This website is created by a full time Masters of IT in Business Analytics student,Ridhima Bansal.
+
+She is learning to build this website under the guidance of her Geospatial Analytic professor, Prof KAM Tin Seong.
+
+In this website, geospatial analytics will be explained in detail over 5 weeks. 
