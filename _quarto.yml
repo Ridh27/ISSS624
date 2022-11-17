@@ -4,7 +4,11 @@ project:
 website:
   title: "ISSS624"
   navbar:
-    left:
+    left: 
+      - text: Hands On Exercise 
+        menu: 
+          - text: Hands-on Exercise 1
+    right:
       - href: index.qmd
         text: Home
       - about.qmd
