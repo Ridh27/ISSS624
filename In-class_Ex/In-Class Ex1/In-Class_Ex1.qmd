@@ -1,0 +1,51 @@
+---
+title: "In-Class Ex1"
+editor: visual
+---
+
+# Overview
+
+In this In-Class Ex1 , we will learn how to compute spatial weights using R. Following will be the learning at the end of this module:
+
+-   Importing spatial and csv file data: **sf** and **readr** package
+
+-   Relational join : **dplyr** package
+
+-   Spatial weight computation: **spdep** package
+
+-   Calculation of spatially lagged variables: **spdep** package
+
+# Getting Started
+
+The code chunk below will install and load tidyverse and sf packages.
+
+```{r}
+pacman::p_load(sf,tidyverse,spdep,tmap)
+```
+
+# Getting the data into R environment
+
+Importing polygon features
+
+This code chunk will import ESRI shapefile into R.
+
+## Importing Hunan Data
+
+```{r}
+hunan = st_read(dsn="data/geospatial/", 
+                layer="Hunan")
+```
+
+## Importing data attribute in csv
+
+```{r}
+hunan2012= read_csv("data/aspatial/Hunan_2012.csv")
+```
+
+## Perform relational join
+
+Update the attribute table of *hunan*\'s SpatialPolygonsDataFrame with the attribute fields of *hunan2012* dataframe
+
+```{r}
+hunan <- left_join(hunan,hunan2012)
+```
