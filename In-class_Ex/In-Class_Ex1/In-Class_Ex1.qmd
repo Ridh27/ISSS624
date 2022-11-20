@@ -1,5 +1,5 @@
 ---
-title: "In-Class Ex1"
+title: "Spatial Weights and Applications"
 editor: visual
 ---
 
@@ -118,4 +118,148 @@ To get the complete weight matrix, **str()** function is used:
 
 ```{r}
 str(wm_q,11)
+```
+
+## Computing (ROOK) contiguity based neighbors
+
+Rook contiguity weight matrix:
+
+```{r}
+wm_r <- poly2nb(hunan, queen=FALSE)
+summary(wm_r)
+```
+
+Summary of the above Report:
+
+Total 88 area units in Hunan. The most connected unit has 10 neighbors and the least connected units,2 units, have 1 neighbor.
+
+## Visualizing Contiguity Weights
+
+A **connectivity graph** takes a point and displays a line to each neighboring point. As we are working with the polygons , therefore we need points to plot the connectivity graph. The most typical method to compute points are by taking polygon centroid.
+
+We will calculate these in the sf package before moving onto the graphs. Getting Latitude and Longitude of Polygon Centroids.
+
+st_centroid on the sf object is little more complicated, therefore, mapping funtion will be used. The **mapping function** applies a given function to each element of a vector and returns a vector of the same length. Longitude value can be accessed through double bracket notation \[\[\]\] and 1. This allows us to get only the longitude, which is the first value in each centroid.
+
+```{R}
+longitude <- map_dbl(hunan$geometry, ~st_centroid(.x)[[1]])
+```
+
+For latitude, only difference is that we access the second value per each centroid with \[\[2\]\].
+
+```{r}
+latitude <- map_dbl(hunan$geometry, ~st_centroid(.x)[[2]])
+```
+
+Putting latitude and longitude in the same object:
+
+```{r}
+coords <- cbind(longitude, latitude)
+```
+
+We can check first few observations using head():
+
+```{r}
+head(coords)
+```
+
+### Plotting Queen contiguity based neighbors map
+
+```{R}
+plot(hunan$geometry, border="lightgrey")
+plot(wm_q, coords, pch = 19, cex = 0.6, add = TRUE, col= "red")
+```
+
+### Plotting Rook contiguity based neighbors map
+
+```{r}
+plot(hunan$geometry, border="lightgrey")
+plot(wm_r, coords, pch = 19, cex = 0.6, add = TRUE, col = "red")
+```
+
+### Plotting both Rook and Queen contiguity based neighbor map together:
+
+```{r}
+par(mfrow=c(1,2))
+plot(hunan$geometry, border="lightgrey")
+plot(wm_q, coords, pch = 19, cex = 0.6, add = TRUE, col= "red", main="Queen Contiguity")
+plot(hunan$geometry, border="lightgrey")
+plot(wm_r, coords, pch = 19, cex = 0.6, add = TRUE, col = "red", main="Rook Contiguity")
+```
+
+## Computing distance based neighbors
+
+In this section, distance weight matrix is computed using **dnearneigh()** of **spdep** package of R.
+
+The function identifies neighbours of region points by Euclidean distance with a distance band with lower d1= and upper d2= bounds controlled by the bounds= argument. If unprojected coordinates are used and either specified in the coordinates object x or with x as a two column matrix and longlat=TRUE, great circle distances in **km** will be calculated assuming the WGS84 reference ellipsoid.
+
+### Determine the cut-off distance
+
+Upper limit of distance is calculated using the following steps:
+
+1.  Using [*knearneigh()*](https://r-spatial.github.io/spdep/reference/knearneigh.html) of **spdep**, matrix is returned by indices of points belonging to the set of the k nearest neighbours of each other.
+
+2.  The returned objected is converted into a neighbours list of class nb with a list of integer vectors containing neighbour region number ids by using [*knn2nb()*](https://r-spatial.github.io/spdep/reference/knn2nb.html).
+
+3.  Return the length of neighbour relationship edges by using [*nbdists()*](https://r-spatial.github.io/spdep/reference/nbdists.html) of **spdep**. The function returns in the units of the coordinates if the coordinates are projected, in km otherwise.
+
+4.  Remove the list structure of the returned object by using [**unlist()**](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/unlist).
+
+```{r}
+#coords <- coordinates(hunan)
+k1 <- knn2nb(knearneigh(coords))
+k1dists <- unlist(nbdists(k1, coords, longlat = TRUE))
+summary(k1dists)
+```
+
+According to summary report, maximum first neighbor distance is 61.79Km, therefore this is used as upper threshold giving certainty that all the units will have at least on neighbor.
+
+### Computing fixed distance weight matrix
+
+Fixed distance weight matrix is used using ***dnearneigh().***
+
+```{r}
+wm_d62 <- dnearneigh(coords, 0, 62, longlat = TRUE)
+wm_d62
+```
+
+According to summary report, on an average each region has \~3.6 neighbors. As neighbors cant be in decimal place. Therefore, it can be concluded that neighbors are between 3 and 4 for each unit.
+
+Next, we will use ***str()*** to display the content of **wm_d62** weight matrix.
+
+```{r}
+str(wm_d62)
+```
+
+Another way to display the structure of the weight matrix is to combine table(). and card() of spdep.
+
+```{r}
+table(hunan$County, card(wm_d62))
+```
+
+```{r}
+n_comp <- n.comp.nb(wm_d62)
+n_comp$nc
+```
+
+```{r}
+table(n_comp$comp.id)
+```
+
+####  Plotting fixed distance weight matrix
+```{r}
+plot(hunan$geometry, border="lightgrey")
+plot(wm_d62, coords, add=TRUE)
+plot(k1, coords, add=TRUE, col="red", length=0.08)
+```
+The red lines show the links of 1st nearest neighbours and the black lines show the links of neighbours within the cut-off distance of 62km.
+
+Alternatively,
+
+```{R}
+par(mfrow=c(1,2))
+plot(hunan$geometry, border="lightgrey")
+plot(k1, coords, add=TRUE, col="red", length=0.08, main="1st nearest neighbours")
+plot(hunan$geometry, border="lightgrey")
+plot(wm_d62, coords, add=TRUE, pch = 19, cex = 0.6, main="Distance link")
 ```
