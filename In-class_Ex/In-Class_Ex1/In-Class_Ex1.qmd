@@ -246,12 +246,14 @@ n_comp$nc
 table(n_comp$comp.id)
 ```
 
-####  Plotting fixed distance weight matrix
+#### Plotting fixed distance weight matrix
+
 ```{r}
 plot(hunan$geometry, border="lightgrey")
 plot(wm_d62, coords, add=TRUE)
 plot(k1, coords, add=TRUE, col="red", length=0.08)
 ```
+
 The red lines show the links of 1st nearest neighbours and the black lines show the links of neighbours within the cut-off distance of 62km.
 
 Alternatively,
@@ -262,4 +264,75 @@ plot(hunan$geometry, border="lightgrey")
 plot(k1, coords, add=TRUE, col="red", length=0.08, main="1st nearest neighbours")
 plot(hunan$geometry, border="lightgrey")
 plot(wm_d62, coords, add=TRUE, pch = 19, cex = 0.6, main="Distance link")
+```
+
+### Computing adaptive distance weight matrix
+
+According to distance weight matrix, urban areas(densely populated) have more neighbors as compared to rural areas(less populated areas) of the country. Having many neighbours smoothes the neighbour relationship across more neighbours.
+
+One of the ways to control neighbors is by using k-nearest neighbours, either accepting asymmetric neighbours or imposing symmetry as shown in the code chunk below.
+
+```{r}
+knn6 <- knn2nb(knearneigh(coords, k=6))
+knn6
+```
+
+Similarly, we can display the content of the matrix by using *str()*.
+
+```{r}
+str(knn6)
+```
+
+**Notice that each county has six neighbours, no less no more!**
+
+#### Plotting the distance based neighbors
+
+```{r}
+plot(hunan$geometry, border="lightgrey")
+plot(knn6, coords, pch = 19, cex = 0.6, add = TRUE, col = "red")
+```
+
+## Weight based on IDW
+
+In this section, spatial weight matrix is derived using Inverse distance method.
+
+Distance between the areas will be computed using nbdists() of spdep.
+
+```{R}
+dist <- nbdists(wm_q, coords, longlat = TRUE)
+ids <- lapply(dist, function(x) 1/(x))
+ids
+```
+
+### Row-Standardized wight matrix
+
+Each neighboring polygon will assigned equal weights(style="W"). This is accomplished by assigning the fraction 1/(#ofneighbors) to each neighboring county then summing the weighted income values.
+
+Drawback: Polygons along the edges of the study area will base their lagged values on fewer polygons thus potentially over- or under-estimating the true nature of the spatial autocorrelation in the data.More robust style options are available, notably style="B".
+
+```{r}
+rswm_q <- nb2listw(wm_q, style="W", zero.policy = TRUE)
+rswm_q
+```
+
+**The zero.policy=TRUE option allows for lists of non-neighbors.**
+
+```{r}
+rswm_q$weights[10]
+```
+
+Each neighbor is assigned a 0.2 of the total weight. This means that when R computes the average neighboring income values, each neighbor's income will be multiplied by 0.2 before being tallied.
+
+Row standardised distance weight matrix :
+
+```{R}
+rswm_ids <- nb2listw(wm_q, glist=ids, style="B", zero.policy=TRUE)
+rswm_ids
+```
+
+```{r}
+rswm_ids$weights[1]
+```
+```{r}
+summary(unlist(rswm_ids$weights))
 ```
