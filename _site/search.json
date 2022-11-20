@@ -53,7 +53,7 @@
     "href": "index.html",
     "title": "ISSS624",
     "section": "",
-    "text": "In this webpage, I am going to share with you my learning of Geospatial analytics."
+    "text": "In this webpage, I am going to share with you my learning of Geospatial analytics.\n\nCONTENTS\n\n\n\n\n\n\n\n\nChapter Number\nChapter Name\nExplanation Tab\n\n\n\n\n1\nGeospatial Data Wrangling with R\nHands-On Exercise 1\n\n\n2\nChoropleth Mapping with R\nHands-On Exercise 1\n\n\n3\nSpatial Weights and Applications\nIn-Class Exercise 1\n\n\n4\nGlobal and Local measures of Spatial Autocorrelation\n\n\n\n5\nGeographical Segmentation with Spatially Constrained Clustering Techniques\n\n\n\n6\nCalibrating Hedonic Pricing Model For Private Highrise Property with GWR method"
   },
   {
     "objectID": "In-class_Ex/In-Class_Ex1/In-Class_Ex1.html#computing-queen-contiguity-based-neighbours",

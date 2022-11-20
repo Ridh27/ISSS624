@@ -5,3 +5,14 @@ title: "ISSS624"
 Welcome to ISSS624 Geospatial Analytics Applications
 
 In this webpage, I am going to share with you my learning of Geospatial analytics.
+
+# CONTENTS
+
+| Chapter Number |                                  Chapter Name                                   |   Explanation Tab   |
+|:--------------:|:-------------------------------------------------------------------------------:|:-------------------:|
+|       1        |                        Geospatial Data Wrangling with R                         | Hands-On Exercise 1 |
+|       2        |                            Choropleth Mapping with R                            | Hands-On Exercise 1 |
+|       3        |                        Spatial Weights and Applications                         | In-Class Exercise 1 |
+|       4        |              Global and Local measures of Spatial Autocorrelation               |                     |
+|       5        |   Geographical Segmentation with Spatially Constrained Clustering Techniques    |                     |
+|       6        | Calibrating Hedonic Pricing Model For Private Highrise Property with GWR method |                     |
