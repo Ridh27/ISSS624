@@ -225,12 +225,52 @@ hist(bperm$res, freq=TRUE, breaks=20, xlab="Simulated Geary c")
 abline(v=1, col="red") 
 ```
 
-# Spatial Correlogram 
+# Spatial Correlogram
 
 Spatial correlogram are great to examine the patterns of spatial autocorrelation in the data or model residual.
 
-They show how correlated are pairs of spatial observations when you increase the distance (lag) between them - they are plots of some index of autocorrelation (Moran\'s I or Geary\'s c) against distance.
+They show how correlated are pairs of spatial observations when you increase the distance (lag) between them - they are plots of some index of autocorrelation (Moran's I or Geary's c) against distance.
 
 Although these are not as fundamental as variograms but they provide richer information than variograms. Spatial Correlogram are useful as an exploratory and descriptive tool.
 
-## Compute Moran's I Correlogram 
+## Compute Moran's I Correlogram
+
+Computation of 6-lag spatial correlogram of GDPPC. The global spatial autocorrelation used in Moran's I. The **plot()** of base Graph is then used to plot the output.
+
+```{R}
+MI_corr <- sp.correlogram(wm_q, 
+                          hunan$GDPPC, 
+                          order=6, 
+                          method="I", 
+                          style="W")
+plot(MI_corr)
+```
+
+We should examine full analysis report as plotting the output might now allow us to provide complete interpretation. This is because not all autocorrelation values are statistically significant.
+
+```{r}
+print(MI_corr)
+```
+
+Out of 6lag spatial correlogram plotting only 1 out of 6 has p value/two sided value greater than significance value.
+
+## Compute Geary's C correlogram and plot
+
+```{r}
+GC_corr <- sp.correlogram(wm_q, 
+                          hunan$GDPPC, 
+                          order=6, 
+                          method="C", 
+                          style="W")
+plot(GC_corr)
+```
+
+**Analysis Report:**
+
+```{r}
+print(GC_corr)
+```
+
+Out of 6 lag spatial correlogram plotting, 3 have p value less than signifiance level of 0.05% and rest are above the significance level.
+
+# Cluster and Outlier Analysis
