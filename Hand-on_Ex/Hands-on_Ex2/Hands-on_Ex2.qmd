@@ -50,8 +50,130 @@ hunan2012 <- read_csv("data/aspatial/Hunan_2012.csv")
 
 ## Performing relational join
 
-Updating the attribute table of *hunan*\'s SpatialPolygonsDataFrame with the attribute fields of *hunan2012* dataframe.
+Updating the attribute table of *hunan*'s SpatialPolygonsDataFrame with the attribute fields of *hunan2012* dataframe.
 
 ```{r}
 hunan <- left_join(hunan,hunan2012)
+```
+
+## Visualizing Regional Development Indicator
+
+Basemap and Cholorpleth maps are prepared to show the distribution of GDPPC 2012:
+
+```{R}
+equal <- tm_shape(hunan) +
+  tm_fill("GDPPC",
+          n = 5,
+          style = "equal") +
+  tm_borders(alpha = 0.5) +
+  tm_layout(main.title = "Equal interval classification")
+
+quantile <- tm_shape(hunan) +
+  tm_fill("GDPPC",
+          n = 5,
+          style = "quantile") +
+  tm_borders(alpha = 0.5) +
+  tm_layout(main.title = "Equal quantile classification")
+
+tmap_arrange(equal, 
+             quantile, 
+             asp=1, 
+             ncol=2)
+```
+
+# Global Spatial Autocorrelation
+
+In this section , global spatial autocorrelation statistics is computed and spatial complete randomness test for global spatial autocorrelation is performed.
+
+## Computing Continuity Spatial Weights
+
+Before computing Global spatial autocorrelation, Spatial weights of the study are constructed. Spatial weights are the neighbourhood relationships between the geographical units (i.e. county) in the study area.
+
+Using **poly2nb()** of **spdep** package, Queen contiguity weight matrix is computed:
+
+```{r}
+wm_q <- poly2nb(hunan, 
+                queen=TRUE)
+summary(wm_q)
+```
+
+The summary reports shows that in Hunan area there are 88 area units. The most number of neighbors are with 85th area unit and the least number of neighbors are with 30th and 65th area unit.
+
+## Row-standardized weights matrix
+
+In th is section, each neighboring polygon will assigned with equal weights (style="W"). It is done by assigning the fraction 1/(#ofneighbors) to each neighboring county then summing the weighted income values.
+
+One of the **drawback** is that polygons along the edges of the study area will base their lagged values on fewer polygons thus potentially over- or under-estimating the true nature of the spatial autocorrelation in the data.
+
+```{r}
+rswm_q <- nb2listw(wm_q, 
+                   style="W", 
+                   zero.policy = TRUE)
+rswm_q
+```
+
+The input of *nb2listw()* must be an object of class **nb**. The syntax of the function has two major arguments, namely style and zero.poly.
+
+-   *style* can take values "W", "B", "C", "U", "minmax" and "S". B is the basic binary coding, W is row standardized (sums over all links to n), C is globally standardized (sums over all links to n), U is equal to C divided by the number of neighbours (sums over all links to unity), while S is the variance-stabilizing coding scheme proposed by Tiefelsdorf et al. 1999, p. 167-168 (sums over all links to n).
+
+-   If *zero policy* is set to TRUE, weights vectors of zero length are inserted for regions without neighbor in the neighbours list. These will in turn generate lag values of zero, equivalent to the sum of products of the zero row t(rep(0, length=length(neighbours))) %\*% x, for arbitrary numerical vector x of length length(neighbours). The spatially lagged value of x for the zero-neighbor region will then be zero, which may (or may not) be a sensible choice.
+
+## Global Spatial Autocorrelation: Moran's I Test
+
+In this section, Moran's I statistics test will be performed using **moran.test()** of **spdep**.
+
+```{R}
+moran.test(hunan$GDPPC, 
+           listw=rswm_q, 
+           zero.policy = TRUE, 
+           na.action=na.omit)
+```
+
+As p value is very small, smaller than the significant level of 0.05% .Therefore, we will reject the null hypothesis.
+
+### Computing Morte Carlo Moran's I
+
+In this total of 1000 simulations will be performed by using **moran.mc()** of **spdep**
+
+```{r}
+set.seed(1234)
+bperm= moran.mc(hunan$GDPPC, 
+                listw=rswm_q, 
+                nsim=999, 
+                zero.policy = TRUE, 
+                na.action=na.omit)
+bperm
+```
+
+Also, after 1000 simulations p value is less than significane level of 0.05%. Therefore, we can reject the null hypothesis.
+
+### Visualizing Monte Carlo Moran's I
+
+```{r}
+mean(bperm$res[1:999])
+```
+
+```{r}
+var(bperm$res[1:999])
+```
+
+```{r}
+summary(bperm$res[1:999])
+```
+
+```{R}
+hist(bperm$res, 
+     freq=TRUE, 
+     breaks=20, 
+     xlab="Simulated Moran's I")
+abline(v=0, 
+       col="red") 
+```
+
+**Using ggplot()**
+
+```{r}
+ggplot(data=bperm,
+        aes(x=as.numeric(res)))+
+  geom_histogram(color="Blue", fill="Red", Bins=20)
 ```
