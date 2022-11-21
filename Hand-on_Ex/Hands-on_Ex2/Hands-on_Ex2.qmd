@@ -1,0 +1,57 @@
+---
+title: "Global and Local Measures of Spatial Autocorrelation"
+editor: visual
+---
+
+# Overview
+
+In this section, we will learn about computation of Global and Local Measures of Spatial Autocorrelation using **spdep** packages. Analysis is performed for detecting clusters and outliers, hot spot or/and cold spot areas.
+
+# Getting Started
+
+## The analytical question
+
+One of the main agenda for local government and planners is to ensure equal distribution of development in the province. Therefore, appropriate statistical methods will be applied to compute whether development are evenly distributed geographically or not. If the answer is **NO,** then next step will be to know "is there sign of spatial clustering?" or if the answer is **YES,** then next step will be to know "where are these clusters?"
+
+In this section, spatial pattern of a selected development indicator (i.e. GDP per capita) of Hunan Provice, People Republic of China will be examined.
+
+## The Study Area Data and Analytical Tools
+
+In this exercise, two data sets will be used, Hunan province administrative boundary layer at county level and Hunan_2012.csv.
+
+Following R packages are installed before starting the analysis: **spdep**, **sf**, **tmap** and **tidyverse.**
+
+```{r}
+packages = c('sf', 'spdep', 'tmap', 'tidyverse')
+for (p in packages){
+  if(!require(p, character.only = T)){
+    install.packages(p)
+  }
+  library(p,character.only = T)
+}
+```
+
+# Getting the Data into R environment
+
+## Import shapefile into r environment
+
+Importing Hunan shapefile into R environment. The imported shapefile will be **simple features** Object of **sf**.
+
+```{r}
+hunan <- st_read(dsn = "data/Geospatial/", 
+                 layer = "Hunan")
+```
+
+## Importing csv file into R environment
+
+```{r}
+hunan2012 <- read_csv("data/aspatial/Hunan_2012.csv")
+```
+
+## Performing relational join
+
+Updating the attribute table of *hunan*\'s SpatialPolygonsDataFrame with the attribute fields of *hunan2012* dataframe.
+
+```{r}
+hunan <- left_join(hunan,hunan2012)
+```
