@@ -172,8 +172,3 @@ abline(v=0,
 
 **Using ggplot()**
 
-```{r}
-ggplot(data=bperm,
-        aes(x=as.numeric(res)))+
-  geom_histogram(color="Blue", fill="Red", Bins=20)
-```
