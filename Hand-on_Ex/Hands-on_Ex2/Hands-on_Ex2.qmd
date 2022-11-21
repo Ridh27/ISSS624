@@ -172,3 +172,65 @@ abline(v=0,
 
 **Using ggplot()**
 
+```{r}
+bperm_df <- bperm[7] #Extracting Only reserve data set
+
+trial <- as.data.frame(bperm_df) #Creating data frame 
+
+ggplot(data=trial, mapping= aes(x=res))+
+  geom_histogram(bins=20, color= "Black", fill="orange")+
+  labs(title= "Simulated Moran's I", 
+       x= "Simulated Moran's I",
+       y="Frequency")
+```
+
+## Global Spatial Autocorrelation: Geary's
+
+In this section, Geary's c statistics testing will be performed using functions of **spdep** package
+
+```{r}
+geary.test(hunan$GDPPC, listw=rswm_q)
+```
+
+As c values are less than 1, we can conclude values are dispersed and observations tend to be dissilimar. We reject the null hypothesis as p value is less than the significant value of 0.05%.
+
+### Computing Monte Carlo Geary's C
+
+Permutation test for Geary's C Statistics is performed
+
+```{r}
+set.seed(1234)
+bperm=geary.mc(hunan$GDPPC, 
+               listw=rswm_q, 
+               nsim=999)
+bperm
+```
+
+### Visualizing the Monte Carlo Gearey's C
+
+```{r}
+mean(bperm$res[1:999])
+```
+
+```{r}
+var(bperm$res[1:999])
+```
+
+```{r}
+summary(bperm$res[1:999])
+```
+
+```{r}
+hist(bperm$res, freq=TRUE, breaks=20, xlab="Simulated Geary c")
+abline(v=1, col="red") 
+```
+
+# Spatial Correlogram 
+
+Spatial correlogram are great to examine the patterns of spatial autocorrelation in the data or model residual.
+
+They show how correlated are pairs of spatial observations when you increase the distance (lag) between them - they are plots of some index of autocorrelation (Moran\'s I or Geary\'s c) against distance.
+
+Although these are not as fundamental as variograms but they provide richer information than variograms. Spatial Correlogram are useful as an exploratory and descriptive tool.
+
+## Compute Moran's I Correlogram 
