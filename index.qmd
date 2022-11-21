@@ -9,7 +9,7 @@ In this webpage, I am going to share with you my learning of Geospatial analytic
 # CONTENTS
 
 | Chapter Number |                                  Chapter Name                                   |   Explanation Tab   |
-|:------------:|:------------------------------------------:|:------------:|
+|:--------------:|:-------------------------------------------------------------------------------:|:-------------------:|
 |       1        |                        Geospatial Data Wrangling with R                         | Hands-On Exercise 1 |
 |       2        |                            Choropleth Mapping with R                            | Hands-On Exercise 1 |
 |       3        |                        Spatial Weights and Applications                         | In-Class Exercise 1 |
