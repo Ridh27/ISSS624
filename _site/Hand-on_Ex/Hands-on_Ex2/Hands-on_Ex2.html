@@ -248,7 +248,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#computing-adaptive-distance-weight-matrix" id="toc-computing-adaptive-distance-weight-matrix" class="nav-link" data-scroll-target="#computing-adaptive-distance-weight-matrix">Computing adaptive distance weight matrix</a></li>
   </ul></li>
-  <li><a href="#computing-gi-statistics" id="toc-computing-gi-statistics" class="nav-link" data-scroll-target="#computing-gi-statistics">Computing GI statistics</a></li>
+  <li><a href="#computing-gi-statistics" id="toc-computing-gi-statistics" class="nav-link" data-scroll-target="#computing-gi-statistics">Computing Gi statistics</a>
+  <ul class="collapse">
+  <li><a href="#gi-statistics-using-fixed-distance" id="toc-gi-statistics-using-fixed-distance" class="nav-link" data-scroll-target="#gi-statistics-using-fixed-distance">Gi statistics using fixed distance</a></li>
+  <li><a href="#mapping-gi-values-with-fixed-distance-weights" id="toc-mapping-gi-values-with-fixed-distance-weights" class="nav-link" data-scroll-target="#mapping-gi-values-with-fixed-distance-weights">Mapping Gi values with fixed distance weights</a></li>
+  <li><a href="#mapping-gi-values-with-adaptive-distance-weights" id="toc-mapping-gi-values-with-adaptive-distance-weights" class="nav-link" data-scroll-target="#mapping-gi-values-with-adaptive-distance-weights">Mapping Gi values with adaptive distance weights</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1174,9 +1179,109 @@ B 88 7744 704 1300 23014</code></pre>
 </section>
 </section>
 <section id="computing-gi-statistics" class="level1">
-<h1>Computing GI statistics</h1>
+<h1>Computing Gi statistics</h1>
+<section id="gi-statistics-using-fixed-distance" class="level2">
+<h2 class="anchored" data-anchor-id="gi-statistics-using-fixed-distance">Gi statistics using fixed distance</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>fips <span class="ot">&lt;-</span> <span class="fu">order</span>(hunan<span class="sc">$</span>County)</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>gi.fixed <span class="ot">&lt;-</span> <span class="fu">localG</span>(hunan<span class="sc">$</span>GDPPC, wm62_lw)</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>gi.fixed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  0.436075843 -0.265505650 -0.073033665  0.413017033  0.273070579
+ [6] -0.377510776  2.863898821  2.794350420  5.216125401  0.228236603
+[11]  0.951035346 -0.536334231  0.176761556  1.195564020 -0.033020610
+[16]  1.378081093 -0.585756761 -0.419680565  0.258805141  0.012056111
+[21] -0.145716531 -0.027158687 -0.318615290 -0.748946051 -0.961700582
+[26] -0.796851342 -1.033949773 -0.460979158 -0.885240161 -0.266671512
+[31] -0.886168613 -0.855476971 -0.922143185 -1.162328599  0.735582222
+[36] -0.003358489 -0.967459309 -1.259299080 -1.452256513 -1.540671121
+[41] -1.395011407 -1.681505286 -1.314110709 -0.767944457 -0.192889342
+[46]  2.720804542  1.809191360 -1.218469473 -0.511984469 -0.834546363
+[51] -0.908179070 -1.541081516 -1.192199867 -1.075080164 -1.631075961
+[56] -0.743472246  0.418842387  0.832943753 -0.710289083 -0.449718820
+[61] -0.493238743 -1.083386776  0.042979051  0.008596093  0.136337469
+[66]  2.203411744  2.690329952  4.453703219 -0.340842743 -0.129318589
+[71]  0.737806634 -1.246912658  0.666667559  1.088613505 -0.985792573
+[76]  1.233609606 -0.487196415  1.626174042 -1.060416797  0.425361422
+[81] -0.837897118 -0.314565243  0.371456331  4.424392623 -0.109566928
+[86]  1.364597995 -1.029658605 -0.718000620
+attr(,"cluster")
+ [1] Low  Low  High High High High High High High Low  Low  High Low  Low  Low 
+[16] High High High High Low  High High Low  Low  High Low  Low  Low  Low  Low 
+[31] Low  Low  Low  High Low  Low  Low  Low  Low  Low  High Low  Low  Low  Low 
+[46] High High Low  Low  Low  Low  High Low  Low  Low  Low  Low  High Low  Low 
+[61] Low  Low  Low  High High High Low  High Low  Low  High Low  High High Low 
+[76] High Low  Low  Low  Low  Low  Low  High High Low  High Low  Low 
+Levels: Low High
+attr(,"gstari")
+[1] FALSE
+attr(,"call")
+localG(x = hunan$GDPPC, listw = wm62_lw)
+attr(,"class")
+[1] "localG"</code></pre>
+</div>
+</div>
+<p>The output of localG() is a vector of G or Gstar values, with attributes “gstari” set to TRUE or FALSE, “call” set to the function call, and class “localG”.</p>
+<p>The Gi statistics is represented as a Z-score. Greater values represent a greater intensity of clustering and the direction (positive or negative) indicates high or low clusters.</p>
+<p>Joining the Gi values to their corresponding hunan sf data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>hunan.gi <span class="ot">&lt;-</span> <span class="fu">cbind</span>(hunan, <span class="fu">as.matrix</span>(gi.fixed)) <span class="sc">%&gt;%</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gstat_fixed =</span> as.matrix.gi.fixed.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Following steps are followed in the above code chunk:</p>
+<ul>
+<li><p>First, it convert the output vector (i.e.&nbsp;gi.fixed) into r matrix object by using as.matrix()</p></li>
+<li><p>. Next, cbind() is used to join hunan@data and gi.fixed matrix to produce a new SpatialPolygonDataFrame called hunan.gi.</p></li>
+<li><p>Lastly, the field name of the gi values is renamed to gstat_fixed by using rename().</p></li>
+</ul>
+</section>
+<section id="mapping-gi-values-with-fixed-distance-weights" class="level2">
+<h2 class="anchored" data-anchor-id="mapping-gi-values-with-fixed-distance-weights">Mapping Gi values with fixed distance weights</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>gdppc <span class="ot">&lt;-</span> <span class="fu">qtm</span>(hunan, <span class="st">"GDPPC"</span>)</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>Gimap <span class="ot">&lt;-</span><span class="fu">tm_shape</span>(hunan.gi) <span class="sc">+</span></span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"gstat_fixed"</span>, </span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"pretty"</span>,</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette=</span><span class="st">"-RdBu"</span>,</span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local Gi"</span>) <span class="sc">+</span></span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(gdppc, Gimap, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Variable(s) "gstat_fixed" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Hands-on_Ex2_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="mapping-gi-values-with-adaptive-distance-weights" class="level2">
+<h2 class="anchored" data-anchor-id="mapping-gi-values-with-adaptive-distance-weights">Mapping Gi values with adaptive distance weights</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>gdppc<span class="ot">&lt;-</span> <span class="fu">qtm</span>(hunan, <span class="st">"GDPPC"</span>)</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>Gimap <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(hunan.gi) <span class="sc">+</span> </span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"gstat_fixed"</span>, </span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"pretty"</span>, </span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette=</span><span class="st">"-RdBu"</span>, </span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local Gi"</span>) <span class="sc">+</span> </span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-10"><a href="#cb91-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(gdppc, </span>
+<span id="cb91-11"><a href="#cb91-11" aria-hidden="true" tabindex="-1"></a>             Gimap, </span>
+<span id="cb91-12"><a href="#cb91-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">asp=</span><span class="dv">1</span>, </span>
+<span id="cb91-13"><a href="#cb91-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Variable(s) "gstat_fixed" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Hands-on_Ex2_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
