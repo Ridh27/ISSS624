@@ -6,6 +6,14 @@ About this site
 
 This website is created by a full time Masters of IT in Business Analytics student,Ridhima Bansal.
 
-She is learning to build this website under the guidance of her Geospatial Analytic professor, Prof KAM Tin Seong.
+She is learning to build this website under the guidance of her Geospatial Analytics professor, Prof KAM Tin Seong.
 
-In this website, geospatial analytics will be explained in detail over 5 weeks. 
+In this website, geospatial analytics will be explained in detail over 5 weeks.
+
+Contact details:
+
+LinkedIn: <https://www.linkedin.com/in/ridhima-bansal-a28aa783/>
+
+Email: Ridhimab.2022\@mitb.smu.edu.sg
+
+GitHub Username: Ridh27
