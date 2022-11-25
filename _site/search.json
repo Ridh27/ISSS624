@@ -264,5 +264,47 @@
     "title": "ISSS624-Geospatial Analytics",
     "section": "",
     "text": "Welcome to ISSS624 Geospatial Analytics Applications\nIn this webpage, I am going to share with you my learning of Geospatial analytics.\n\nCONTENTS\n\n\n\n\n\n\n\n\nChapter Number\nChapter Name\nExplanation Tab\n\n\n\n\n1\nGeospatial Data Wrangling with R\nHands-On Exercise 1\n\n\n2\nChoropleth Mapping with R\nHands-On Exercise 1\n\n\n3\nSpatial Weights and Applications\nIn-Class Exercise 1\n\n\n4\nGlobal and Local measures of Spatial Autocorrelation\nHands-On Exercise 2\n\n\n5\nGeographical Segmentation with Spatially Constrained Clustering Techniques\n\n\n\n6\nCalibrating Hedonic Pricing Model For Private Highrise Property with GWR method"
+  },
+  {
+    "objectID": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html",
+    "href": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html",
+    "title": "Geospatial Analytics for Social Good",
+    "section": "",
+    "text": "Water is an essential resource, providing healthy environment, a sustainable economy, reducing poverty and also ensuring peace and security. Importance of accessible and clear water is very critical, already 40% of the population doesn’t have access to safe drinkable water. The scarcity of water leads to imbalance in the ecosystem. There will be food scarcity as agricultural department is dependent on world’s accessible freshwater.\nScarcity of fresh water is so adverse that 80% of illness in developing countries are because of lack of sanitation and clean water. Providing clean water in rural communities of the developing countries is still a major issue in many countries globally, especially countries in Africa continent.\nTo address this issue a projected has been initiated with aim to collect water point related data from rural areas at the water point or small water scheme level and share the data via WPdx Data Repository, a cloud-based data library."
+  },
+  {
+    "objectID": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html#aspatial-data",
+    "href": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html#aspatial-data",
+    "title": "Geospatial Analytics for Social Good",
+    "section": "Aspatial Data",
+    "text": "Aspatial Data\nThe data from WPdx Global Data Repositories will be used, WPdx+ data set."
+  },
+  {
+    "objectID": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html#geospatial-data",
+    "href": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html#geospatial-data",
+    "title": "Geospatial Analytics for Social Good",
+    "section": "Geospatial Data",
+    "text": "Geospatial Data\nNigeria Level-2 Administrative Boundary (also known as Local Government Area) polygon features GIS data will be used downloaded from geoBoundaries."
+  },
+  {
+    "objectID": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html#data-wrangling",
+    "href": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html#data-wrangling",
+    "title": "Geospatial Analytics for Social Good",
+    "section": "Data Wrangling",
+    "text": "Data Wrangling\nFollowing tasks will be performed in geospatial analysis:\n\nUsing appropriate sf method, importing the shapefile into R and save it in a simple feature data frame format.\nUsing appropriate tidyr and dplyr methods, proportion of functional and non-functional water point at LGA level is derived.\nCombining the geospatial and aspatial data frame into simple feature data frame.\nPerforming outliers/clusters analysis by using appropriate local measures of spatial association methods.\nPerforming hotspot areas analysis by using appropriate local measures of spatial association methods."
+  },
+  {
+    "objectID": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html#thematic-mapping",
+    "href": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html#thematic-mapping",
+    "title": "Geospatial Analytics for Social Good",
+    "section": "Thematic Mapping",
+    "text": "Thematic Mapping\n\nMaps are plotted to show the spatial distribution of functional and non-functional water point rate at LGA level by using appropriate thematic mapping technique provided by tmap package."
+  },
+  {
+    "objectID": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html#analytical-mapping",
+    "href": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html#analytical-mapping",
+    "title": "Geospatial Analytics for Social Good",
+    "section": "Analytical Mapping",
+    "text": "Analytical Mapping\n\nHotspot areas and outliers/clusters maps of functional and non0functional water point rate at LGA level by using appropriate thematic mapping technique provided by tmap package."
   }
 ]

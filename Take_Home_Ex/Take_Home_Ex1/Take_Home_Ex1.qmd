@@ -1,0 +1,50 @@
+---
+title: "Geospatial Analytics for Social Good"
+editor: visual
+---
+
+# Background
+
+Water is an essential resource, providing healthy environment, a sustainable economy, reducing poverty and also ensuring peace and security. Importance of accessible and clear water is very critical, already 40% of the population doesn't have access to safe drinkable water. The scarcity of water leads to imbalance in the ecosystem. There will be food scarcity as agricultural department is dependent on world's accessible freshwater.
+
+Scarcity of fresh water is so adverse that 80% of illness in developing countries are because of lack of sanitation and clean water. Providing clean water in rural communities of the developing countries is still a major issue in many countries globally, especially countries in Africa continent.
+
+To address this issue a projected has been initiated with aim to collect water point related data from rural areas at the water point or small water scheme level and share the data via WPdx Data Repository, a cloud-based data library.
+
+# Objective
+
+To address complex problems faced by society using geospatial analysis. Using appropriate global and local measures of spatial Association techniques, the spatial patterns of Not Functional water points are revealed. In this exercise, Nigeria will be used as a study point country.
+
+# The Data 
+
+## Aspatial Data
+
+The data from [WPdx Global Data Repositories](https://www.waterpointdata.org/access-data/) will be used, WPdx+ data set.
+
+## Geospatial Data 
+
+Nigeria Level-2 Administrative Boundary (also known as Local Government Area) polygon features GIS data will be used downloaded from [geoBoundaries](https://www.geoboundaries.org/).
+
+# The Task 
+
+## Data Wrangling 
+
+Following tasks will be performed in geospatial analysis:
+
+-   Using appropriate sf method, importing the shapefile into R and save it in a simple feature data frame format.
+
+-   Using appropriate tidyr and dplyr methods, proportion of functional and non-functional water point at LGA level is derived.
+
+-   Combining the geospatial and aspatial data frame into simple feature data frame.
+
+-   Performing outliers/clusters analysis by using appropriate local measures of spatial association methods.
+
+-   Performing hotspot areas analysis by using appropriate local measures of spatial association methods.
+
+## Thematic Mapping
+
+-   Maps are plotted to show the spatial distribution of functional and non-functional water point rate at LGA level by using appropriate thematic mapping technique provided by tmap package.
+
+## Analytical Mapping
+
+-   Hotspot areas and outliers/clusters maps of functional and non0functional water point rate at LGA level by using appropriate thematic mapping technique provided by tmap package.
