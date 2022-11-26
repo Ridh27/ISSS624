@@ -192,7 +192,7 @@ In this section, Geary's c statistics testing will be performed using functions 
 geary.test(hunan$GDPPC, listw=rswm_q)
 ```
 
-As c values are less than 1, we can conclude values are dispersed and observations tend to be dissilimar. We reject the null hypothesis as p value is less than the significant value of 0.05%.
+As c values are less than 1, we can conclude values are dispersed and observations tend to be similar. We reject the null hypothesis as p value is less than the significant value of 0.05%.
 
 ### Computing Monte Carlo Geary's C
 
@@ -442,8 +442,8 @@ DV <- hunan$GDPPC - mean(hunan$GDPPC)
 C_mI <- localMI[,1] - mean(localMI[,1])    
 signif <- 0.05       
 quadrant[DV >0 & C_mI>0] <- 4      
-quadrant[DV <0 & C_mI<0] <- 1      
-quadrant[DV <0 & C_mI>0] <- 2
+quadrant[DV <0 & C_mI<0] <- 2      
+quadrant[DV <0 & C_mI>0] <- 1
 quadrant[DV >0 & C_mI<0] <- 3
 quadrant[localMI[,5]>signif] <- 0
 ```
@@ -634,7 +634,7 @@ tmap_arrange(gdppc, Gimap, asp=1, ncol=2)
 
 ```
 
-## Mapping Gi values with adaptive distance weights 
+## Mapping Gi values with adaptive distance weights
 
 ```{r}
 gdppc<- qtm(hunan, "GDPPC")

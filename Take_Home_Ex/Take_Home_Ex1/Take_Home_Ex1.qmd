@@ -15,19 +15,19 @@ To address this issue a projected has been initiated with aim to collect water p
 
 To address complex problems faced by society using geospatial analysis. Using appropriate global and local measures of spatial Association techniques, the spatial patterns of Not Functional water points are revealed. In this exercise, Nigeria will be used as a study point country.
 
-# The Data 
+# The Data
 
 ## Aspatial Data
 
 The data from [WPdx Global Data Repositories](https://www.waterpointdata.org/access-data/) will be used, WPdx+ data set.
 
-## Geospatial Data 
+## Geospatial Data
 
 Nigeria Level-2 Administrative Boundary (also known as Local Government Area) polygon features GIS data will be used downloaded from [geoBoundaries](https://www.geoboundaries.org/).
 
-# The Task 
+# The Task
 
-## Data Wrangling 
+## Data Wrangling
 
 Following tasks will be performed in geospatial analysis:
 
@@ -48,3 +48,47 @@ Following tasks will be performed in geospatial analysis:
 ## Analytical Mapping
 
 -   Hotspot areas and outliers/clusters maps of functional and non0functional water point rate at LGA level by using appropriate thematic mapping technique provided by tmap package.
+
+# Getting Started
+
+## Setting the Analytical Tools
+
+Installing and launching R packages into R environment
+
+```{R}
+pacman::p_load(sf, spdep, tmap, tidyverse)
+```
+
+## Import shapefile into R environment
+
+Using, st_read() of **sf** package, Nigeria Level-2 Administrative Boundary shapefile is imported into R environment.
+
+```{r}
+nigeria <- st_read(dsn = "Data/Geospatial/", 
+                 layer = "geoBoundaries-NGA-ADM2")
+```
+
+### Assigning EPSG code to a simple feature data frame
+
+```{r}
+st_crs(nigeria)
+```
+
+Projected coordinate systems of Nigeria, they are EPSG: 26391, 26392, and 26303. In order to assign the correct EPSG code to `nigeria`data frame, *st_set_crs()* of **sf** package is used as shown in the code chunk below.
+
+```{r}
+nigeria_26391 <- st_set_crs(nigeria, 26391)
+st_crs(nigeria_26391)
+```
+
+## Import csv file into r environment
+
+Using *read_csv()* of **readr** package, aspatial data is imported
+
+```{R}
+WPDx <- read_csv("Data/Aspatial/WPDx.csv.csv")
+```
+
+## Performing relational join
+
+The code chunk below will be used to update the attribute table of nigeria_26391's SpatialPolygonsDataFrame with the attribute fields of WPDx dataframe. This is performed by using *left_join()* of **dplyr** package.
