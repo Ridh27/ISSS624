@@ -56,39 +56,181 @@ Following tasks will be performed in geospatial analysis:
 Installing and launching R packages into R environment
 
 ```{R}
-pacman::p_load(sf, spdep, tmap, tidyverse)
+pacman::p_load(sf, spdep, tmap, tidyverse,funModeling)
 ```
 
 ## Import shapefile into R environment
 
+### Importing water point geospatial
+
 Using, st_read() of **sf** package, Nigeria Level-2 Administrative Boundary shapefile is imported into R environment.
 
 ```{r}
-nigeria <- st_read(dsn = "Data/Geospatial/", 
-                 layer = "geoBoundaries-NGA-ADM2")
+#| eval: false
+
+wp <- st_read(dsn = "Geodata",
+              layer = "geo_export",
+              crs = 4326) %>%
+  filter(clean_coun == "Nigeria")
 ```
 
-### Assigning EPSG code to a simple feature data frame
+Things to learn from the code chunk above:
 
-```{r}
-st_crs(nigeria)
-```
+\*\*st_read()\*\* of sf package is used to import geo_export shapefile into R environment and save the imported geospatial data into simple feature data table.
 
-Projected coordinate systems of Nigeria, they are EPSG: 26391, 26392, and 26303. In order to assign the correct EPSG code to `nigeria`data frame, *st_set_crs()* of **sf** package is used as shown in the code chunk below.
+\*\*filter()\*\* of dplyr package is used to extract water point records of Nigeria. In the code chunk below, "write_rds()" of reader package is used to save the extracted sf table .....
 
-```{r}
-nigeria_26391 <- st_set_crs(nigeria, 26391)
-st_crs(nigeria_26391)
-```
-
-## Import csv file into r environment
-
-Using *read_csv()* of **readr** package, aspatial data is imported
+Next, \`write_rds()\` of readr package is used to save the extracted sf data table (i.e. wp) into an output file in rds data format. The output file is called \*wp_nga.rds\* and it is saved in \*geodata\* sub-folder.
 
 ```{R}
-WPDx <- read_csv("Data/Aspatial/WPDx.csv.csv")
+#| eval: false
+write_rds(wp, "Geodata/wp_nga.rds")
 ```
 
-## Performing relational join
+### Importing Nigeria LGA boundary data
 
-The code chunk below will be used to update the attribute table of nigeria_26391's SpatialPolygonsDataFrame with the attribute fields of WPDx dataframe. This is performed by using *left_join()* of **dplyr** package.
+Now, we are going to import the LGA boundary data into R environment by using the code chunk below.
+
+```{R}
+#| eval: false
+nga <- st_read(dsn = "Geodata",
+               layer= "geoBoundaries-NGA-ADM2",
+               crs = 4326)
+```
+
+Thing to learn from the code chunk above.
+
+\- \`st_read()\` of \*\*sf\*\* package is used to import \*geoBoundaries-NGA-ADM2\* shapefile into R environment and save the imported geospatial data into simple feature data table.
+
+# Data Wrangling
+
+## Recoding the NA values into string
+
+In the code chunk below, \`replace_na()\` is used to recode all the \*NA\* values in \*status_cle\* field into \*Unknown\*.
+
+```{R}
+#| eval: false
+wp_nga <- read_rds("geodata/wp_nga.rds") %>%
+  mutate(status_cle = replace_na(status_cle, "Unknown"))
+  
+```
+
+## Exploratory Data Analysis
+
+In the code chunk below, `freq()` of **funModeling** package is used to display the distribution of *status_cle* field in *wp_nga*.
+
+```{r}
+#| eval: false
+freq(data=wp_nga, 
+     input = 'status_cle')
+```
+
+# Extracting Water Points
+
+By using classes in *status_cle* field, extracting water points records.
+
+## Extracting functional water point
+
+Using, `filter()` of dplyr is used to select functional water points.
+
+```{r}
+#| eval: false
+wpt_functional <- wp_nga %>%
+  filter(status_cle %in%
+           c("Functional", 
+             "Functional but not in use",
+             "Functional but needs repair"))
+```
+
+```{r}
+#| eval: false
+freq(data=wpt_functional, 
+     input = 'status_cle')
+```
+
+## Extracting non-functional water points
+
+Using, `filter()` of dplyr is used to select non-functional water points.
+
+```{r}
+#| eval: false
+wpt_nonfunctional <- wp_nga %>%
+  filter(status_cle %in%
+           c("Abandoned/Decommissioned", 
+             "Abandoned",
+             "Non-Functional",
+             "Non functional due to dry season",
+             "Non-Functional due to dry season"))
+```
+
+```{r}
+#| eval: false
+freq(data=wpt_nonfunctional, 
+     input = 'status_cle')
+```
+
+## Extracting water point with unknown class
+
+Using, `filter()` of dplyr is used to select water points with unknown status.
+
+```{r}
+#| eval: false
+wpt_unknown <- wp_nga %>%
+  filter(status_cle == "Unknown")
+```
+
+# Performing Point-in Polygon Count
+
+```{r}
+#| eval: false
+nga_wp <- nga %>% 
+  mutate(`total wpt` = lengths(
+    st_intersects(nga, wp_nga))) %>%
+  mutate(`wpt functional` = lengths(
+    st_intersects(nga, wpt_functional))) %>%
+  mutate(`wpt non-functional` = lengths(
+    st_intersects(nga, wpt_nonfunctional))) %>%
+  mutate(`wpt unknown` = lengths(
+    st_intersects(nga, wpt_unknown)))
+```
+
+# Saving the Analytical Data Table
+
+Learnings from code chunks:
+
+-   `mutate()` of **dplyr** package is used to derive two fields namely *pct_functional* and *pct_non-functional*.
+
+-   to keep the file size small, `select()` of **dplyr** is used to retain only field 3,4,9,10, 18,19,20,21,22,and 23.
+
+```{r}
+#| eval: false
+nga_wp <- nga_wp %>%
+  mutate(pct_functional = `wpt functional`/`total wpt`) %>%
+  mutate(`pct_non-functional` = `wpt non-functional`/`total wpt`)
+```
+
+```{r}
+#| eval: false
+write_rds(nga_wp, "Geodata/nga_wp.rds")
+```
+
+# Visualising the spatial distribution of water points
+
+```{r}
+nga_wp <- read_rds("Geodata/nga_wp.rds")
+#| fig-width: 14
+#| fig:height: 12
+tmap_mode("view")
+tm_shape(nga_wp)+
+  tm_fill(c("total wpt","wpt functional","wpt non-functional","wpt unknown"), 
+          style = "quantile", 
+          palette = "Blues") +
+  tm_layout(main.title = "Distribution of Water Points",
+            main.title.position = "center",
+            main.title.size = 1,
+            legend.height = 0.25, 
+            legend.width = 0.35,
+            legend.position = c("right", "bottom"),
+            frame = TRUE) +
+  tm_borders(alpha = 0.5)
+```
