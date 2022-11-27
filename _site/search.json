@@ -375,7 +375,7 @@
     "href": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html#recoding-the-na-values-into-string",
     "title": "Geospatial Analytics for Social Good",
     "section": "Recoding the NA values into string",
-    "text": "Recoding the NA values into string\nIn the code chunk below, `replace_na()` is used to recode all the *NA* values in *status_cle* field into *Unknown*.\n\nwp_nga <- read_rds(\"Geodata/wp_nga.rds\")\n  mutate(status_cle = replace_na(status_cle, \"Unknown\"))"
+    "text": "Recoding the NA values into string\nIn the code chunk below, `replace_na()` is used to recode all the *NA* values in *status_cle* field into *Unknown*.\n\nwp_nga <- read_rds(\"geodata/wp_nga.rds\") %>%\n  mutate(status_cle = replace_na(status_cle, \"Unknown\"))"
   },
   {
     "objectID": "Take_Home_Ex/Take_Home_Ex1/Take_Home_Ex1.html#exploratory-data-analysis",
