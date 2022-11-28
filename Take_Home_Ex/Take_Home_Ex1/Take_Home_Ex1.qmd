@@ -59,6 +59,21 @@ Installing and launching R packages into R environment
 pacman::p_load(sf, spdep, tmap, tidyverse,funModeling)
 ```
 
+Explanation of the following packages:
+
+-   **sf**: used for importing, managing, and processing geospatial data
+
+-   **tidyverse**: a collection of packages for data science tasks
+
+-   **tmap**: used for creating thematic maps, such as choropleth and bubble maps
+
+-   **spdep**: used for following computations:\
+    1. Global Spatial Autocorrelation (GSA) statistics\
+    2. Local Indicator of Spatial Association (LISA) statistics for detecting clusters and outliers\
+    3. Getis-Ord\'s Gi-statistics for detecting hot spot or/and cold spot area
+
+-   **funModeling**: used for Exploratory data analysis, data preparation and model performance
+
 ## Import shapefile into R environment
 
 ### Importing water point geospatial
@@ -280,6 +295,8 @@ Right Map: It shows the equal **quantile** classification of non functional spat
 
 Global spatial autocorrelation statistics is computed and spatial complete randomness test for global spatial autocorrelation is performed.
 
+We are using Queen method, considering areas adjacent if they are located horizontally, vertically and diagonally on a 2-D plane.
+
 Using **the code chunk below**, Queen contiguity weight matrix is computed:
 
 ```{R}
@@ -347,7 +364,13 @@ bperm= moran.mc(nga_wp$`wpt non-functional`,
 bperm
 ```
 
-From the above results, we can observe p value is less than significant level of 0.05. Therefore, we can **reject** the null hypothesis,Observed spatial pattern of values is equally likely as any other spatial pattern.
+### Observations
+
+**Null Hyposthesis**: The distribution of non functional water points are random phenomenon.
+
+**Alternative Hypothesis**: that the distribution non functional water points is spatially dependent through calculating the Moran\'s I statistic and Geary\'s C ratio for the data set
+
+From the above results, we can observe p value is less than significant level of 0.05. Therefore, we can **reject** the null hypothesis. It can be concluded that distribution of non functional water points are spatially dependent through calculating the Moran's I statistics ratio for the data set.
 
 ## Visualizing Monte Carlo Moran's I
 
@@ -409,11 +432,13 @@ Above plot might not provide complete interpretation as not all autocorrelation 
 print(MI_corr)
 ```
 
+### Observations
+
 From the above output, it can be observed that all the 6 lag spatial correlogram, p value is less than the significant value of 0.05. Therefore null hypothesis, the non functional water points location of values may be altered without affecting the information content of the data, is **rejected**.
 
 # Cluster and Outlier Analysis
 
- Local Indicators of Spatial Association or LISA are statistics that evaluate the existence of clusters in the spatial arrangement of a given variable. We are studying non functional spatial distribution of water points among census tracts in a Nigeria, local clusters in the rates mean that there are areas that have higher or lower rates than is to be expected by chance alone; that is, the values occurring are above or below those of a random distribution in space.
+Local Indicators of Spatial Association or LISA are statistics that evaluate the existence of clusters in the spatial arrangement of a given variable. We are studying non functional spatial distribution of water points among census tracts in a Nigeria, local clusters in the rates mean that there are areas that have higher or lower rates than is to be expected by chance alone; that is, the values occurring are above or below those of a random distribution in space.
 
 ## Computing local Moran's I
 
@@ -565,13 +590,12 @@ tm_shape(nga_wp.localMI) +
   tm_fill(col = "quadrant", 
           style = "cat", 
           palette = colors[c(sort(unique(quadrant)))+1], 
-          labels = clusters[c(sort(unique(quadrant)))+1],
-          popup.vars = c("")) +
+          labels = clusters[c(sort(unique(quadrant)))+1]) +
   tm_view(set.zoom.limits = c(11,17)) +
   tm_borders(alpha=0.5)
 ```
 
-For effective interpretation, it is better to plot both the local Moran\'s I values map and its corresponding p-values map next to each other.
+For effective interpretation, it is better to plot **both the local Moran\'s I values map and its corresponding p-values** map next to each other.
 
 ```{R}
 nonfunc <- qtm(nga_wp, "wpt non-functional")
@@ -585,13 +609,15 @@ LISAmap <- tm_shape(nga_wp.localMI) +
           style = "cat", 
           palette = colors[c(sort(unique(quadrant)))+1], 
           labels = clusters[c(sort(unique(quadrant)))+1],
-          popup.vars = c("")) +
+          popup.vars= c("")) +
   tm_view(set.zoom.limits = c(11,17)) +
   tm_borders(alpha=0.5)
 
 tmap_arrange(nonfunc, LISAmap, 
              asp=1, ncol=2)
 ```
+
+### Observation:
 
 # Hot spot and Cold spot Area Analysis 
 
@@ -746,7 +772,9 @@ Gimap <-tm_shape(nga_wp.gi) +
 tmap_arrange(nonfunc, Gimap, asp=1, ncol=2)
 ```
 
-**Observations:** It can be observed from wpt non functional map that city "Ifelodun" has the highest non functional spatial distribution of water points. According to local Gi map, when Gi statistics fixed distance weight method was used for calculation in which all the features should have atleast one neighbor, then hot spot region with maximum non functional water points is "Moba" as it is significant and positive with relatively high values of the surrounding locations.
+### **Observations**
+
+It can be observed from wpt non functional map that city "Ifelodun" has the highest non functional spatial distribution of water points. According to local Gi map, when Gi statistics fixed distance weight method was used for calculation in which all the features should have atleast one neighbor, then hot spot region with maximum non functional water points is "Moba" as it is significant and positive with relatively high values of the surrounding locations.
 
 ## Gi statistics using adaptive distance
 
@@ -783,12 +811,38 @@ tmap_arrange(nonfunc,
              ncol=2)
 ```
 
-**Observations:** It can be observed from wpt non functional map that city "Ifelodun" has the highest non functional spatial distribution of water points. According to local Gi map, when Gi statistics adaptive distance weight method was used for calculations, number of 'dark red' regions increased from 1. That means number of regions with hot spot non functional water points in Nigeria are more sparse.
+### **Observations**
 
+It can be observed from wpt non functional map that city "Ifelodun" has the highest non functional spatial distribution of water points. According to local Gi map, when Gi statistics adaptive distance weight method was used for calculations, number of 'dark red' regions increased from 1. That means number of regions with hot spot non functional water points in Nigeria are more sparse.
 
+# Conclusion
 
-\
+As the need for fresh water is a necessary for every country. Failure of water points in Nigeria contribute significantly as one of the factors that cannot be controlled in short or medium term. Water points in urban areas perform worse than those in rural areas. [This is likely due to urban overcrowding amid rapid increases in urban populations driven by rural-urban migration. The availability of pumps is likely to be much higher per capita in rural than in urban areas.](https://www.researchgate.net/publication/324091771_Why_Are_So_Many_Water_Points_in_Nigeria_Non-Functional_An_Empirical_Analysis_of_Contributing_Factors)
 
+The geospatial analysis of non functional spatial distribution of water points using Global and Local measures of Spatial Autocorrelation had computed great insights from the large data sets of Nigeria's geoboundaries and water points. The LISA analysis helped in getting the Hot spot and cold spot areas of non functional water points in Nigeria. Using Chloropleth mapping we found out the functional, non functional and unknown water point regions. Using Moran's I statistical test we concluded whether the regions were clustered or dispersed and observations tend to be similar or dissimilar. Using Thematic and Analytical Mapping spatial distribution of functional and non-functional water point rate at LGA level are analysed.
+
+## 
+
+Future Impacts/Suggestions
+
+# Acknowledgement
+
+Sincerely thanks to Prof Kam, for all the Geospatial Analytics lecture notes and Hands on Exercise materials- taken reference from them, from data importing to data wrangling to Geospatial data visualisation.
+
+## Resources Used 
+
+Below are the resources used for the analysis for this Take Home Exercise . Special thanks to prof who recommended Senior Sample submissions.
+
+-   [Megan Sim Tze Yen, Analysing and Visualising Spatio-temporal Patterns of COVID-19 in DKI Jakarta, Indonesia](https://is415-msty.netlify.app/posts/2021-09-10-take-home-exercise-1/#conclusions)
+
+-   [R Function List](https://statisticsglobe.com/r-functions-list/)
+
+-    [Research Paper, Is there space for violence?: A data-driven approach to the exploration of spatial-temporal dimensions of conflict](https://ink.library.smu.edu.sg/cgi/viewcontent.cgi?article=5334&context=sis_research)
+
+-   [Research Paper, Why Are So Many Water Points in Nigeria Non-Functional?](https://www.researchgate.net/publication/324091771_Why_Are_So_Many_Water_Points_in_Nigeria_Non-Functional_An_Empirical_Analysis_of_Contributing_Factors)
+
+## 
+ 
 
 
 
