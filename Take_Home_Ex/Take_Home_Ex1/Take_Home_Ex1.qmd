@@ -1,6 +1,8 @@
 ---
-title: "Geospatial Analytics for Social Good"
-editor: visual
+title: "Geospatial Analytics for Social Good: Non Functional Spatial Distribution of Water Points in Nigeria"
+author: "Ridhima Bansal"
+date: "November 29,2022"
+editor: visual  
 ---
 
 # Background
@@ -772,8 +774,8 @@ Gimap <-tm_shape(nga_wp.gi) +
 tmap_arrange(nonfunc, Gimap, asp=1, ncol=2)
 ```
 
-### **Observations**
-
+**Observations\
+**
 It can be observed from wpt non functional map that city "Ifelodun" has the highest non functional spatial distribution of water points. According to local Gi map, when Gi statistics fixed distance weight method was used for calculation in which all the features should have atleast one neighbor, then hot spot region with maximum non functional water points is "Moba" as it is significant and positive with relatively high values of the surrounding locations.
 
 ## Gi statistics using adaptive distance
@@ -822,7 +824,6 @@ As the need for fresh water is a necessary for every country. Failure of water p
 The geospatial analysis of non functional spatial distribution of water points using Global and Local measures of Spatial Autocorrelation had computed great insights from the large data sets of Nigeria's geoboundaries and water points. The LISA analysis helped in getting the Hot spot and cold spot areas of non functional water points in Nigeria. Using Chloropleth mapping we found out the functional, non functional and unknown water point regions. Using Moran's I statistical test we concluded whether the regions were clustered or dispersed and observations tend to be similar or dissimilar. Using Thematic and Analytical Mapping spatial distribution of functional and non-functional water point rate at LGA level are analysed.
 
 ## 
-
 Future Impacts/Suggestions
 
 # Acknowledgement
