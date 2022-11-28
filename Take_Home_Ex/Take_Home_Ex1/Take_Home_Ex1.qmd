@@ -246,7 +246,7 @@ Above visualization shows the spatial distribution of water points in functional
 
 It can be observed that cluster of Wukari, Gassol, Ardo Kola, Zing, Bali has high proportion of functional, non functional and unknown class water points.
 
-# Thematic Mapping 
+# Thematic Mapping
 
 Thematic maps are the single0topic maps that focus on specific themes or phenomena. By using. ***tmap()*** package,spatial distribution of functional and non functional water point rate at LGA level can be plotted.
 
@@ -276,7 +276,7 @@ tmap_arrange(equal,
 Left Map: It shows the equal **interval** classification of non functional spatial distribution of water points.\
 Right Map: It shows the equal **quantile** classification of non functional spatial distribution of water points.
 
-# Computing Contiguity Spatial Weights 
+# Computing Contiguity Spatial Weights
 
 Global spatial autocorrelation statistics is computed and spatial complete randomness test for global spatial autocorrelation is performed.
 
@@ -298,11 +298,11 @@ set.ZeroPolicyOption(TRUE)
 
 ## Row- Standardized weight matrix
 
-In this method, each neighboring polygon will assigned with equal weights (style=\"W\"). W means sum over all links to n. It is done by assigning the fraction 1/(#ofneighbors) to each neighboring county then summing the weighted income values.
+In this method, each neighboring polygon will assigned with equal weights (style="W"). W means sum over all links to n. It is done by assigning the fraction 1/(#ofneighbors) to each neighboring county then summing the weighted income values.
 
 There are 2 major arguments of function ***nb2listw():***
 
-1.  ***styles*** can take values \"W\", \"B\", \"C\", \"U\", \"minmax\" and \"S\".
+1.  ***styles*** can take values "W", "B", "C", "U", "minmax" and "S".
 
 If *zero policy* is set to TRUE, weights vectors of zero length are inserted for regions without neighbor in the neighbours list. These will in turn generate lag values of zero, equivalent to the sum of products of the zero row t(rep(0, length=length(neighbours))) %\*% x, for arbitrary numerical vector x of length length(neighbours). The spatially lagged value of x for the zero-neighbour region will then be zero, which may (or may not) be a sensible choice.
 
@@ -313,7 +313,7 @@ rswm_q <- nb2listw(wm_q,
 rswm_q
 ```
 
-# Global Spatial Autocorrelation: Moran's I 
+# Global Spatial Autocorrelation: Moran's I
 
 Using the code chunk below, ***moran.test() from spdep,*** Moran's I statistics testing will be performed on non functional water points.
 
@@ -331,9 +331,9 @@ It can be observed that Z value, 0.433, is greater than zero. Therefore, it can 
 
 ## Computing Monte Carlo's Moran's I
 
-Monte Carlo simulation is performed when there is a doubt that the assumptions of Moran\'s I are true (normality and randomization).
+Monte Carlo simulation is performed when there is a doubt that the assumptions of Moran's I are true (normality and randomization).
 
-The code chunk below performs permutation test for Moran\'s I statistic by using **m*oran.mc()*** of **spdep**. A total of 1000 simulation will be performed.
+The code chunk below performs permutation test for Moran's I statistic by using **m*oran.mc()*** of **spdep**. A total of 1000 simulation will be performed.
 
 nsim is set as 999 for 1000 simulations as 0 is also included.
 
@@ -349,7 +349,7 @@ bperm
 
 From the above results, we can observe p value is less than significant level of 0.05. Therefore, we can **reject** the null hypothesis,Observed spatial pattern of values is equally likely as any other spatial pattern.
 
-## Visualizing Monte Carlo Moran's I 
+## Visualizing Monte Carlo Moran's I
 
 Monte Carlo Moran's I statistics testing will be visualized by plotting the distribution of the statistical values as a histogram by using the code chunk below:
 
@@ -384,15 +384,15 @@ Learnings from above code chunk :
 
 From the above histogram, it can interpreted that at Simulated Moran's I value 0 then frequency of non functional spatial water distribution points are maximum.
 
-# Spatial Correlogram 
+# Spatial Correlogram
 
 Spatial correlogram are great to examine the patterns of spatial autocorrelation in the data or model residual.
 
-They show how correlated are pairs of spatial observations when you increase the distance (lag) between them - they are plots of some index of autocorrelation (Moran\'s I) against distance.
+They show how correlated are pairs of spatial observations when you increase the distance (lag) between them - they are plots of some index of autocorrelation (Moran's I) against distance.
 
-## Compute Moran's I Correlogram 
+## Compute Moran's I Correlogram
 
-Computation of 6-lag spatial correlogram of non functional water points. The global spatial autocorrelation used in Moran\'s I. The **plot()** of base Graph is then used to plot the output.
+Computation of 6-lag spatial correlogram of non functional water points. The global spatial autocorrelation used in Moran's I. The **plot()** of base Graph is then used to plot the output.
 
 ```{R}
 MI_corr <- sp.correlogram(wm_q, 
@@ -411,13 +411,13 @@ print(MI_corr)
 
 From the above output, it can be observed that all the 6 lag spatial correlogram, p value is less than the significant value of 0.05. Therefore null hypothesis, the non functional water points location of values may be altered without affecting the information content of the data, is **rejected**.
 
-# Cluster and Outlier Analysis 
+# Cluster and Outlier Analysis
 
  Local Indicators of Spatial Association or LISA are statistics that evaluate the existence of clusters in the spatial arrangement of a given variable. We are studying non functional spatial distribution of water points among census tracts in a Nigeria, local clusters in the rates mean that there are areas that have higher or lower rates than is to be expected by chance alone; that is, the values occurring are above or below those of a random distribution in space.
 
 ## Computing local Moran's I
 
-Computing local Moran\'s I of *non functional water points* at the county level using **localmoran() function in spdep.**
+Computing local Moran's I of *non functional water points* at the county level using **localmoran() function in spdep.**
 
 ```{R}
 fips <- order(nga_wp$shapeName)
@@ -427,7 +427,7 @@ head(localMI)
 
 localmoran() function returns a matrix of values whose columns are:
 
--   Ii: the local Moran\'s I statistics
+-   Ii: the local Moran's I statistics
 
 -   E.Ii: the expectation of local moran statistic under the randomisation hypothesis
 
@@ -441,7 +441,7 @@ List the content of the local Moran matrix derived by using *printCoefmat()*
 
 ## Mapping the Local Moran's I
 
-Before mapping, append the local Moran\'s I dataframe (i.e. localMI) onto nga_wp SpatialPolygonDataFrame
+Before mapping, append the local Moran's I dataframe (i.e. localMI) onto nga_wp SpatialPolygonDataFrame
 
 ```{R}
 nga_wp.localMI <- cbind(nga_wp,localMI) %>%
@@ -470,8 +470,7 @@ tm_shape(nga_wp.localMI) +
   tm_borders(alpha = 0.5)
 ```
 
-## 
-Mapping both local Moran's I values and p values 
+## Mapping both local Moran's I values and p values
 
 Both the maps are plotted together for in depth comparison analysis.
 
@@ -492,10 +491,301 @@ pvalue.map <- tm_shape(nga_wp.localMI) +
 tmap_arrange(localMI.map, pvalue.map, asp=1, ncol=2)
 ```
 
-# 
-Creating LISA Cluster Map 
+# Creating LISA Cluster Map
 
-##  
+It shows the significant locations color coded by type of spatial autocorrelation. The first step before we can generate the LISA cluster map is to plot the Moran scatterplot.
+
+```{R}
+nci <- moran.plot(nga_wp$`wpt non-functional`, rswm_q,
+                  labels=as.character(nga_wp$shapeName), 
+                  xlab="Non-Functional waterpoints", 
+                  ylab="Spatially Lag Non-functional waterpoints")
+```
+
+**Outliers**: It is significant and negative if location i is associated with relatively low values in surrounding locations.\
+**Cluster**: It is significant and positive if location i is associated with relatively high values of the surrounding locations.
+
+The scatter plot is divided into 4 categories:
+
+1.  **Lower Left Quadrant (Low-Low)**- these are **clusters** of low frequency of non functional spatial distribution of water points as against spatially lagged non functional points.
+2.  **Lower right Quadrant (High-Low)-** these are the **outliers** where areas of high frequency of incidents where non functional water points occurred are located next to areas where there is low frequency of non functional water points in Nigeria occurred.
+3.  **Upper Left Quadrant (Low-High)**- these are the **outliers** where low frequency of non functional water points occurred that are located next to areas where high frequency of non functional water points occured.
+4.  **Upper right Quadrant (High-High)-** these are the **clusters where** indicates high spatial correlation where non functional water points areas are clustered closely together.
+
+## Plotting Moran scatterplot with standardized variables
+
+First, using ***scale()*** to centers and scales the variable. Here centering is done by subtracting the mean (omitting NAs) the corresponding columns, and scaling is done by dividing the (centered) variable by their standard deviations.
+
+The ***as.vector()*** added to the end is to make sure that the data type we get out of this is a vector, that map neatly into out dataframe.
+
+```{R}
+nga_wp$Z.nonfunc <- scale(nga_wp$`wpt non-functional`) %>% 
+  as.vector 
+nci2 <- moran.plot(nga_wp$Z.nonfunc, rswm_q,
+                   labels=as.character(nga_wp$shapeName),
+                   xlab="z-no functional points", 
+                   ylab="Spatially Lag non functional points")
+```
+
+**NOTE: One of the drawback of Moran's I scatterplot is that it does not indicate whether the above regions are significant or not.**
+
+## Preparing LISA Map Classes
+
+```{R}
+quadrant <- vector(mode="numeric",length=nrow(localMI))
+nga_wp$lag_non_func_points <- lag.listw(rswm_q, nga_wp$`wpt non-functional`)
+DV <- nga_wp$lag_non_func_points - mean(nga_wp$lag_non_func_points)     
+C_mI <- localMI[,1] - mean(localMI[,1])    
+signif <- 0.05       
+quadrant[DV <0 & C_mI>0] <- 1
+quadrant[DV >0 & C_mI<0] <- 2
+quadrant[DV <0 & C_mI<0] <- 3  
+quadrant[DV >0 & C_mI>0] <- 4      
+quadrant[localMI[,5]>signif] <- 0
+```
+
+For each country/administrative region, LISA classification of the scores are assigned as follows:
+
+-   If DV \> 0 & C_mI \> 0; it is categorised as "High-High" \[4\]
+
+-   If DV \< 0 & C_mI \< 0; it is categorised as "Low-Low" \[3\]
+
+-   If DV \< 0 & C_mI \> 0; it is categorised as "Low-High" \[1\]
+
+-   If DV \> 0 & C_mI \< 0; it is categorised as "High-Low" \[2\]
+
+## Plotting LISA Map
+
+```{R}
+nga_wp.localMI$quadrant <- quadrant
+colors <- c("#ffffff", "#2c7bb6", "#abd9e9", "#fdae61", "#d7191c")
+clusters <- c("insignificant", "low-low", "low-high", "high-low", "high-high")
+
+tm_shape(nga_wp.localMI) +
+  tm_fill(col = "quadrant", 
+          style = "cat", 
+          palette = colors[c(sort(unique(quadrant)))+1], 
+          labels = clusters[c(sort(unique(quadrant)))+1],
+          popup.vars = c("")) +
+  tm_view(set.zoom.limits = c(11,17)) +
+  tm_borders(alpha=0.5)
+```
+
+For effective interpretation, it is better to plot both the local Moran\'s I values map and its corresponding p-values map next to each other.
+
+```{R}
+nonfunc <- qtm(nga_wp, "wpt non-functional")
+
+nga_wp.localMI$quadrant <- quadrant
+colors <- c("#ffffff", "#2c7bb6", "#abd9e9", "#fdae61", "#d7191c")
+clusters <- c("insignificant", "low-low", "low-high", "high-low", "high-high")
+
+LISAmap <- tm_shape(nga_wp.localMI) +
+  tm_fill(col = "quadrant", 
+          style = "cat", 
+          palette = colors[c(sort(unique(quadrant)))+1], 
+          labels = clusters[c(sort(unique(quadrant)))+1],
+          popup.vars = c("")) +
+  tm_view(set.zoom.limits = c(11,17)) +
+  tm_borders(alpha=0.5)
+
+tmap_arrange(nonfunc, LISAmap, 
+             asp=1, ncol=2)
+```
+
+# Hot spot and Cold spot Area Analysis 
+
+Beside detecting cluster and outliers, localised spatial statistics can be also used to detect hot spot and/or cold spot areas.
+
+**\"Hot Spot\" is used to describe a region or value that is higher relative to its surroundings.**
+
+## 
+Getis and Ord's G-Statistics
+
+It is an alternative spatial statistics to detect spatial anomalies, looking at neighbors within a defined proximity to identify where either high or low values clutser spatially. Statistically significant **hot-spots** are recognised as areas of high values where other areas within a neighbourhood range also share high values too. The analysis consists of three steps:
+
+-   Deriving spatial weight matrix
+
+-   Computing Gi statistics
+
+-   Mapping Gi statistics
+
+## Deriving Distance-based weight matrix 
+
+First, defining a new set of neighbors. Whist the spatial autocorrelation considered units which shared borders, for Getis-Ord we are defining neighbours based on distance.
+
+There are two type of distance-based proximity matrix, they are:
+
+-   fixed distance weight matrix; and
+
+-   adaptive distance weight matrix.
+
+**Deriving the centroid**
+
+Coordinates in separate dataframe is required. The mapping function applies a given function to each element of a vector and returns a vector of the same length. Our input vector will be the geometry column of us.bound. Our function will be *st_centroid()*. We will be using map_dbl variation of map from the purrr package.
+
+Calculation longitude, first value in each centroid; latitude, second value in each centroid; and then combining both longitude and latitude using the code chunk below.
+
+```{R}
+longitude <- map_dbl(nga_wp$geometry, ~st_centroid(.x)[[1]])
+latitude <- map_dbl(nga_wp$geometry, ~st_centroid(.x)[[2]])
+coords <- cbind(longitude, latitude)
+```
+
+### Determine the cut-off distance
+
+Upper limit for the distance is calculated using the following steps:
+
+-   Return a matrix with the indices of points belonging to the set of the k nearest neighbours of each other by using ***knearneigh()*** of **spdep**.
+
+-   Convert the knn object returned by *knearneigh()* into a neighbours list of class nb with a list of integer vectors containing neighbour region number ids by using ***knn2nb()***
+
+-   Return the length of neighbour relationship edges by using ***nbdists()*** of **spdep**. The function returns in the units of the coordinates if the coordinates are projected, in km otherwise.
+
+-   Remove the list structure of the returned object by using ***unlist()***
+
+```{R}
+k1 <- knn2nb(knearneigh(coords))
+k1dists <- unlist(nbdists(k1, coords, longlat = TRUE))
+summary(k1dists)
+```
+
+The summary report shows that the largest first nearest neighbour distance is 71.66 km, so using this as the upper threshold gives certainty that all units will have at least one neighbour.
+
+### Computing fixed distance weight matrix 
+
+Using ***dnearneigh(),*** distance weight matrix is computed as shown in the code chunk below.
+
+The functions ***dnearneigh()*** identifies neighbours of region points by Euclidean distance in the metric of the points between lower (greater than or equal to (changed from version 1.1-7)) and upper (less than or equal to) bounds, or with longlat = TRUE, by Great Circle distance in kilometers.
+
+```{R}
+wm_d62 <- dnearneigh(coords, 0, 62, longlat = TRUE)
+wm_d62
+```
+
+Next, using ***nb2listw()*** nb objects are converted into spatial weight objects.
+
+```{R}
+wm62_lw <- nb2listw(wm_d62, style = 'B')
+summary(wm62_lw)
+```
+
+### 
+Computing Adaptive distance based matrix
+
+More densely settled areas (usually the urban areas) tend to have more neighbors and the less densely settled areas (usually the rural counties) tend to have lesser neighbors.
+
+It is possible to control the numbers of neighbors directly using k-nearest neighbors, either accepting asymmetric neighbors or imposing symmetry as shown in the code chunk below.
+
+```{R}
+knn <- knn2nb(knearneigh(coords, k=8))
+knn
+```
+
+From the above summary report, the neighbor list is converted into non symmetric format with average of 8 neighbor links for each region.
+
+Next, ***nb2listw()*** is used to convert the nb object into spatial weights object.
+
+```{R}
+knn_lw <- nb2listw(knn, style = 'B')
+summary(knn_lw)
+```
+
+Style B is the basic binary code.
+
+# Computing Gi Statistics 
+
+Given a set of geospatial features (i.e. points or polygons) and an analysis field, the spatial statistics tell you where features with either high (i.e. hot spots) or low values (cold spots) cluster spatially. The spatial statistic used is called **Getis-Ord Gi statistic.**
+
+Interpretation of Getis-Ord Gi and Gi:
+
+**A hot spot area**: significant and positive if location i is associated with relatively high values of the surrounding locations.\
+**A cold spot are**a: significant and negative if location i is associated with relatively low values in surrounding locations.
+
+## Gi statistics using fixed distance 
+
+```{R}
+fips <- order(nga_wp$shapeName)
+gi.fixed <- localG(nga_wp$`wpt non-functional`, wm62_lw)
+gi.fixed
+```
+
+The output of localG() is a vector of G or Gstar values, with attributes \"gstari\" set to TRUE or FALSE, \"call\" set to the function call, and class \"localG\".
+
+The Gi statistics is represented as a Z-score. Greater values represent a greater intensity of clustering and the direction (positive or negative) indicates high or low clusters.
+
+Joining the Gi values to their corresponding nga_wp sf data frame:
+
+```{R}
+nga_wp.gi <- cbind(nga_wp, as.matrix(gi.fixed)) %>%
+  rename(gstat_fixed = as.matrix.gi.fixed.)
+```
+
+Following steps were followed in the above code chunk:
+
+-   First, it convert the output vector (i.e. gi.fixed) into r matrix object by using as.matrix()
+
+-   Next, cbind() is used to join nga_wp\@data and gi.fixed matrix to produce a new SpatialPolygonDataFrame called nga_wp.gi.
+
+-   Lastly, the field name of the gi values is renamed to gstat_fixed by using rename().
+
+## Mapping Gi values with fixed distance weights 
+
+The code chunk below shows the functions used to map the Gi values derived using fixed distance weight matrix.
+
+```{R}
+nonfunc <- qtm(nga_wp, "wpt non-functional")
+
+Gimap <-tm_shape(nga_wp.gi) +
+  tm_fill(col = "gstat_fixed", 
+          style = "pretty",
+          palette="-RdBu",
+          title = "local Gi") +
+  tm_borders(alpha = 0.5)
+
+tmap_arrange(nonfunc, Gimap, asp=1, ncol=2)
+```
+
+**Observations:** It can be observed from wpt non functional map that city "Ifelodun" has the highest non functional spatial distribution of water points. According to local Gi map, when Gi statistics fixed distance weight method was used for calculation in which all the features should have atleast one neighbor, then hot spot region with maximum non functional water points is "Moba" as it is significant and positive with relatively high values of the surrounding locations.
+
+## Gi statistics using adaptive distance
+
+The code chunk below are used to compute the Gi values for wpt non functional water point areas by using an adaptive distance weight matrix ***(i.e knb_lw)*****.**
+
+```{R}
+fips <- order(nga_wp$shapeName)
+gi.adaptive <- localG(nga_wp$`wpt non-functional`, knn_lw)
+nga_wp.gi <- cbind(nga_wp, as.matrix(gi.adaptive)) %>%
+  rename(gstat_adaptive = as.matrix.gi.adaptive.)
+```
+
+## Mapping Gi values with the adaptive distance weights 
+
+In adaptive distance weights, weights adjusts itself according to the density of the data. Shorter bandwidths where data is dense and Longer bandwidths where data is sparse.
+
+Using, choropleth mapping functions of **tmap** package location of hot spot and cold spot areas are visualized.
+
+The code chunk below shows the functions used to map the Gi values derived using fixed distance weight matrix.
+
+```{R}
+nonfunc <- qtm(nga_wp, "wpt non-functional")
+
+Gimap <- tm_shape(nga_wp.gi) + 
+  tm_fill(col = "gstat_adaptive", 
+          style = "pretty", 
+          palette="-RdBu", 
+          title = "local Gi") + 
+  tm_borders(alpha = 0.5)
+
+tmap_arrange(nonfunc, 
+             Gimap, 
+             asp=1, 
+             ncol=2)
+```
+
+**Observations:** It can be observed from wpt non functional map that city "Ifelodun" has the highest non functional spatial distribution of water points. According to local Gi map, when Gi statistics adaptive distance weight method was used for calculations, number of 'dark red' regions increased from 1. That means number of regions with hot spot non functional water points in Nigeria are more sparse.
+
+
 
 \
 
@@ -503,5 +793,10 @@ Creating LISA Cluster Map
 
 
 
-\
+
+
+
+
+
+
 
