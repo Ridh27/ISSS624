@@ -1,5 +1,5 @@
 ---
-title: "Geospatial Analytics for Social Good: Non Functional Spatial Distribution of Water Points in Nigeria"
+title: "Geospatial Analytics for Social Good: Spatial Distribution of Water Points in Nigeria"
 author: "Ridhima Bansal"
 date: "November 29,2022"
 editor: visual  

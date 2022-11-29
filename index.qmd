@@ -11,10 +11,19 @@ In this webpage, I am going to share with you my learning of Geospatial analytic
 # CONTENTS
 
 | Chapter Number |                                  Chapter Name                                   |   Explanation Tab   |
-|:------------:|:------------------------------------------:|:------------:|
+|:--------------:|:---------------------------------------:|:--------------:|
 |       1        |                        Geospatial Data Wrangling with R                         | Hands-On Exercise 1 |
 |       2        |                            Choropleth Mapping with R                            | Hands-On Exercise 1 |
 |       3        |                        Spatial Weights and Applications                         | In-Class Exercise 1 |
 |       4        |              Global and Local measures of Spatial Autocorrelation               | Hands-On Exercise 2 |
 |       5        |   Geographical Segmentation with Spatially Constrained Clustering Techniques    |                     |
 |       6        | Calibrating Hedonic Pricing Model For Private Highrise Property with GWR method |                     |
+
+# Take Home Exercise
+
+| Take Home Ex Number |                                         Topic                                         |       Date       |
+|:-------------------:|:-------------------------------------------------------------------------------------:|:----------------:|
+|          1          | Geospatial Analytics for Social Good: Spatial Distribution of Water Points in Nigeria | November 29,2022 |
+|                     |                                                                                       |                  |
+|                     |                                                                                       |                  |
+|                     |                                                                                       |                  |
