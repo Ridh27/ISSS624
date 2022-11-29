@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Ridhima Bansal">
+<meta name="dcterms.date" content="2022-11-29">
 
-<title>ISSS624 - Geospatial Analytics for Social Good</title>
+<title>ISSS624 - Geospatial Analytics for Social Good: Non Functional Spatial Distribution of Water Points in Nigeria</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -240,7 +242,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#performing-point-in-polygon-count" id="toc-performing-point-in-polygon-count" class="nav-link" data-scroll-target="#performing-point-in-polygon-count">Performing Point-in Polygon Count</a></li>
   <li><a href="#saving-the-analytical-data-table" id="toc-saving-the-analytical-data-table" class="nav-link" data-scroll-target="#saving-the-analytical-data-table">Saving the Analytical Data Table</a></li>
-  <li><a href="#visualising-the-spatial-distribution-of-water-points" id="toc-visualising-the-spatial-distribution-of-water-points" class="nav-link" data-scroll-target="#visualising-the-spatial-distribution-of-water-points">Visualising the spatial distribution of water points</a></li>
+  <li><a href="#visualising-the-spatial-distribution-of-water-points" id="toc-visualising-the-spatial-distribution-of-water-points" class="nav-link" data-scroll-target="#visualising-the-spatial-distribution-of-water-points">Visualising the spatial distribution of water points</a>
+  <ul class="collapse">
+  <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations"><strong>Observations</strong></a></li>
+  </ul></li>
   <li><a href="#thematic-mapping-1" id="toc-thematic-mapping-1" class="nav-link" data-scroll-target="#thematic-mapping-1">Thematic Mapping</a></li>
   <li><a href="#computing-contiguity-spatial-weights" id="toc-computing-contiguity-spatial-weights" class="nav-link" data-scroll-target="#computing-contiguity-spatial-weights">Computing Contiguity Spatial Weights</a>
   <ul class="collapse">
@@ -248,9 +253,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#global-spatial-autocorrelation-morans-i" id="toc-global-spatial-autocorrelation-morans-i" class="nav-link" data-scroll-target="#global-spatial-autocorrelation-morans-i">Global Spatial Autocorrelation: Moran’s I</a>
   <ul class="collapse">
+  <li><a href="#observation" id="toc-observation" class="nav-link" data-scroll-target="#observation">Observation</a></li>
   <li><a href="#computing-monte-carlos-morans-i" id="toc-computing-monte-carlos-morans-i" class="nav-link" data-scroll-target="#computing-monte-carlos-morans-i">Computing Monte Carlo’s Moran’s I</a>
   <ul class="collapse">
-  <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations">Observations</a></li>
+  <li><a href="#observations-1" id="toc-observations-1" class="nav-link" data-scroll-target="#observations-1">Observations</a></li>
   </ul></li>
   <li><a href="#visualizing-monte-carlo-morans-i" id="toc-visualizing-monte-carlo-morans-i" class="nav-link" data-scroll-target="#visualizing-monte-carlo-morans-i">Visualizing Monte Carlo Moran’s I</a></li>
   </ul></li>
@@ -258,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#compute-morans-i-correlogram" id="toc-compute-morans-i-correlogram" class="nav-link" data-scroll-target="#compute-morans-i-correlogram">Compute Moran’s I Correlogram</a>
   <ul class="collapse">
-  <li><a href="#observations-1" id="toc-observations-1" class="nav-link" data-scroll-target="#observations-1">Observations</a></li>
+  <li><a href="#observations-2" id="toc-observations-2" class="nav-link" data-scroll-target="#observations-2">Observations</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#cluster-and-outlier-analysis" id="toc-cluster-and-outlier-analysis" class="nav-link" data-scroll-target="#cluster-and-outlier-analysis">Cluster and Outlier Analysis</a>
@@ -266,48 +272,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#computing-local-morans-i" id="toc-computing-local-morans-i" class="nav-link" data-scroll-target="#computing-local-morans-i">Computing local Moran’s I</a></li>
   <li><a href="#mapping-the-local-morans-i" id="toc-mapping-the-local-morans-i" class="nav-link" data-scroll-target="#mapping-the-local-morans-i">Mapping the Local Moran’s I</a></li>
   <li><a href="#mapping-local-morans-i-p-values" id="toc-mapping-local-morans-i-p-values" class="nav-link" data-scroll-target="#mapping-local-morans-i-p-values">Mapping local Moran’s I p values</a></li>
-  <li><a href="#mapping-both-local-morans-i-values-and-p-values" id="toc-mapping-both-local-morans-i-values-and-p-values" class="nav-link" data-scroll-target="#mapping-both-local-morans-i-values-and-p-values">Mapping both local Moran’s I values and p values</a></li>
+  <li><a href="#mapping-both-local-morans-i-values-and-p-values-non-functional" id="toc-mapping-both-local-morans-i-values-and-p-values-non-functional" class="nav-link" data-scroll-target="#mapping-both-local-morans-i-values-and-p-values-non-functional">Mapping both local Moran’s I values and p values (Non Functional)</a>
+  <ul class="collapse">
+  <li><a href="#observation-1" id="toc-observation-1" class="nav-link" data-scroll-target="#observation-1">Observation</a></li>
+  </ul></li>
+  <li><a href="#mapping-both-local-morans-i-values-and-p-values-functional" id="toc-mapping-both-local-morans-i-values-and-p-values-functional" class="nav-link" data-scroll-target="#mapping-both-local-morans-i-values-and-p-values-functional">Mapping both local Moran’s I values and p values (Functional)</a>
+  <ul class="collapse">
+  <li><a href="#observation-2" id="toc-observation-2" class="nav-link" data-scroll-target="#observation-2">Observation</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#creating-lisa-cluster-map" id="toc-creating-lisa-cluster-map" class="nav-link" data-scroll-target="#creating-lisa-cluster-map">Creating LISA Cluster Map</a>
   <ul class="collapse">
   <li><a href="#plotting-moran-scatterplot-with-standardized-variables" id="toc-plotting-moran-scatterplot-with-standardized-variables" class="nav-link" data-scroll-target="#plotting-moran-scatterplot-with-standardized-variables">Plotting Moran scatterplot with standardized variables</a></li>
-  <li><a href="#preparing-lisa-map-classes" id="toc-preparing-lisa-map-classes" class="nav-link" data-scroll-target="#preparing-lisa-map-classes">Preparing LISA Map Classes</a></li>
-  <li><a href="#plotting-lisa-map" id="toc-plotting-lisa-map" class="nav-link" data-scroll-target="#plotting-lisa-map">Plotting LISA Map</a>
+  <li><a href="#preparing-lisa-map-classes-non-functional" id="toc-preparing-lisa-map-classes-non-functional" class="nav-link" data-scroll-target="#preparing-lisa-map-classes-non-functional">Preparing LISA Map Classes (Non Functional)</a></li>
+  <li><a href="#plotting-lisa-map-non-functional" id="toc-plotting-lisa-map-non-functional" class="nav-link" data-scroll-target="#plotting-lisa-map-non-functional">Plotting LISA Map (Non Functional)</a>
   <ul class="collapse">
-  <li><a href="#observation" id="toc-observation" class="nav-link" data-scroll-target="#observation">Observation:</a></li>
+  <li><a href="#observation-3" id="toc-observation-3" class="nav-link" data-scroll-target="#observation-3">Observation</a></li>
   </ul></li>
+  <li><a href="#plotting-lisa-map-functional" id="toc-plotting-lisa-map-functional" class="nav-link" data-scroll-target="#plotting-lisa-map-functional">Plotting LISA Map (Functional)</a></li>
   </ul></li>
   <li><a href="#hot-spot-and-cold-spot-area-analysis" id="toc-hot-spot-and-cold-spot-area-analysis" class="nav-link" data-scroll-target="#hot-spot-and-cold-spot-area-analysis">Hot spot and Cold spot Area Analysis</a>
   <ul class="collapse">
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#getis-and-ords-g-statistics" id="toc-getis-and-ords-g-statistics" class="nav-link" data-scroll-target="#getis-and-ords-g-statistics">Getis and Ord’s G-Statistics</a></li>
   <li><a href="#deriving-distance-based-weight-matrix" id="toc-deriving-distance-based-weight-matrix" class="nav-link" data-scroll-target="#deriving-distance-based-weight-matrix">Deriving Distance-based weight matrix</a>
   <ul class="collapse">
   <li><a href="#determine-the-cut-off-distance" id="toc-determine-the-cut-off-distance" class="nav-link" data-scroll-target="#determine-the-cut-off-distance">Determine the cut-off distance</a></li>
   <li><a href="#computing-fixed-distance-weight-matrix" id="toc-computing-fixed-distance-weight-matrix" class="nav-link" data-scroll-target="#computing-fixed-distance-weight-matrix">Computing fixed distance weight matrix</a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
+  <li><a href="#computing-adaptive-distance-based-matrix" id="toc-computing-adaptive-distance-based-matrix" class="nav-link" data-scroll-target="#computing-adaptive-distance-based-matrix">** **Computing Adaptive distance based matrix</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#computing-gi-statistics" id="toc-computing-gi-statistics" class="nav-link" data-scroll-target="#computing-gi-statistics">Computing Gi Statistics</a>
   <ul class="collapse">
   <li><a href="#gi-statistics-using-fixed-distance" id="toc-gi-statistics-using-fixed-distance" class="nav-link" data-scroll-target="#gi-statistics-using-fixed-distance">Gi statistics using fixed distance</a></li>
-  <li><a href="#mapping-gi-values-with-fixed-distance-weights" id="toc-mapping-gi-values-with-fixed-distance-weights" class="nav-link" data-scroll-target="#mapping-gi-values-with-fixed-distance-weights">Mapping Gi values with fixed distance weights</a>
-  <ul class="collapse">
-  <li><a href="#observations-2" id="toc-observations-2" class="nav-link" data-scroll-target="#observations-2"><strong>Observations</strong></a></li>
-  </ul></li>
+  <li><a href="#mapping-gi-values-with-fixed-distance-weights" id="toc-mapping-gi-values-with-fixed-distance-weights" class="nav-link" data-scroll-target="#mapping-gi-values-with-fixed-distance-weights">Mapping Gi values with fixed distance weights</a></li>
   <li><a href="#gi-statistics-using-adaptive-distance" id="toc-gi-statistics-using-adaptive-distance" class="nav-link" data-scroll-target="#gi-statistics-using-adaptive-distance">Gi statistics using adaptive distance</a></li>
   <li><a href="#mapping-gi-values-with-the-adaptive-distance-weights" id="toc-mapping-gi-values-with-the-adaptive-distance-weights" class="nav-link" data-scroll-target="#mapping-gi-values-with-the-adaptive-distance-weights">Mapping Gi values with the adaptive distance weights</a>
   <ul class="collapse">
   <li><a href="#observations-3" id="toc-observations-3" class="nav-link" data-scroll-target="#observations-3"><strong>Observations</strong></a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a>
-  <ul class="collapse">
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
-  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#acknowledgement" id="toc-acknowledgement" class="nav-link" data-scroll-target="#acknowledgement">Acknowledgement</a>
   <ul class="collapse">
   <li><a href="#resources-used" id="toc-resources-used" class="nav-link" data-scroll-target="#resources-used">Resources Used</a></li>
-  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -317,14 +325,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Geospatial Analytics for Social Good</h1>
+<h1 class="title">Geospatial Analytics for Social Good: Non Functional Spatial Distribution of Water Points in Nigeria</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ridhima Bansal </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 29, 2022</p>
+    </div>
+  </div>
     
   </div>
   
@@ -391,14 +411,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>sf</strong>: used for importing, managing, and processing geospatial data</p></li>
 <li><p><strong>tidyverse</strong>: a collection of packages for data science tasks</p></li>
 <li><p><strong>tmap</strong>: used for creating thematic maps, such as choropleth and bubble maps</p></li>
-<li><p><strong>spdep</strong>: used for following computations:<br>
-</p>
+<li><p><strong>spdep</strong>: used for following computations:</p>
 <ol type="1">
 <li>Global Spatial Autocorrelation (GSA) statistics<br>
 </li>
 <li>Local Indicator of Spatial Association (LISA) statistics for detecting clusters and outliers<br>
 </li>
-<li>Getis-Ord's Gi-statistics for detecting hot spot or/and cold spot area</li>
+<li>Getis-Ord’s Gi-statistics for detecting hot spot or/and cold spot area</li>
 </ol></li>
 <li><p><strong>funModeling</strong>: used for Exploratory data analysis, data preparation and model performance</p></li>
 </ul>
@@ -456,7 +475,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="extracting-water-points" class="level1">
 <h1>Extracting Water Points</h1>
-<p>By using classes in <em>status_cle</em> field, extracting water points records.</p>
+<p>By using classes in <em>status_cle</em> field, extracting water points records for Nigeria.</p>
 <section id="extracting-functional-water-point" class="level2">
 <h2 class="anchored" data-anchor-id="extracting-functional-water-point">Extracting functional water point</h2>
 <p>Using, <code>filter()</code> of dplyr is used to select functional water points.</p>
@@ -557,9 +576,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </figure>
 </div>
 <p>Fig 1: Visual spatial distribution of water points</p>
-<p><strong>Observations:</strong></p>
+<section id="observations" class="level2">
+<h2 class="anchored" data-anchor-id="observations"><strong>Observations</strong></h2>
 <p>Above visualization shows the spatial distribution of water points in functional, non functional and unknown classes. The darker blue shade shows that proportion of water points in the particular region is highest among all the neighboring regions.</p>
 <p>It can be observed that cluster of Wukari, Gassol, Ardo Kola, Zing, Bali has high proportion of functional, non functional and unknown class water points.</p>
+</section>
 </section>
 <section id="thematic-mapping-1" class="level1">
 <h1>Thematic Mapping</h1>
@@ -594,7 +615,7 @@ Right Map: It shows the equal <strong>quantile</strong> classification of non fu
 <section id="computing-contiguity-spatial-weights" class="level1">
 <h1>Computing Contiguity Spatial Weights</h1>
 <p>Global spatial autocorrelation statistics is computed and spatial complete randomness test for global spatial autocorrelation is performed.</p>
-<p>We are using Queen method, considering areas adjacent if they are located horizontally, vertically and diagonally on a 2-D plane.</p>
+<p>We are using <strong>Queen method</strong>, considering areas adjacent if they are located horizontally, vertically and diagonally on a 2-D plane.</p>
 <p>Using <strong>the code chunk below</strong>, Queen contiguity weight matrix is computed:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>wm_q <span class="ot">&lt;-</span> <span class="fu">poly2nb</span>(nga_wp, </span>
@@ -619,7 +640,7 @@ Link number distribution:
 </div>
 </div>
 <p>In the above code chunk, <strong>poly2nb()</strong> of <strong>spdep</strong> package is used to compute contiguity weight matrices for the study area.</p>
-<p>The summary reports shows that in Nigeria area there are 774 area units. The most number of neighbors are with 508th area unit and the least number of neighbors are with 138th and 560th area unit. There is a region, 86th with no neighbors.</p>
+<p>The <strong>summary report</strong> shows that in Nigeria area there are 774 area units. The most number of neighbors are with 508th area unit and the least number of neighbors are with 138th and 560th area unit. There is a region, 86th with no neighbors.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.ZeroPolicyOption</span>(<span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -632,8 +653,8 @@ Link number distribution:
 <p>There are 2 major arguments of function <strong><em>nb2listw():</em></strong></p>
 <ol type="1">
 <li><strong><em>styles</em></strong> can take values “W”, “B”, “C”, “U”, “minmax” and “S”.</li>
+<li>If <em>zero policy</em> is set to TRUE, weights vectors of zero length are inserted for regions without neighbor in the neighbours list. These will in turn generate lag values of zero, equivalent to the sum of products of the zero row t(rep(0, length=length(neighbours))) %*% x, for arbitrary numerical vector x of length length(neighbours). The spatially lagged value of x for the zero-neighbour region will then be zero, which may (or may not) be a sensible choice.</li>
 </ol>
-<p>If <em>zero policy</em> is set to TRUE, weights vectors of zero length are inserted for regions without neighbor in the neighbours list. These will in turn generate lag values of zero, equivalent to the sum of products of the zero row t(rep(0, length=length(neighbours))) %*% x, for arbitrary numerical vector x of length length(neighbours). The spatially lagged value of x for the zero-neighbour region will then be zero, which may (or may not) be a sensible choice.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rswm_q <span class="ot">&lt;-</span> <span class="fu">nb2listw</span>(wm_q, </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">style=</span><span class="st">"W"</span>, </span>
@@ -655,6 +676,7 @@ Weights constants summary:
 W 773 597529 773 285.0658 3198.414</code></pre>
 </div>
 </div>
+<p>The above <strong>summary report</strong> shows that there are 774 total number of regions. Using, row standardized weight matrix there are on an average 5 neighbors per region.</p>
 </section>
 </section>
 <section id="global-spatial-autocorrelation-morans-i" class="level1">
@@ -681,7 +703,10 @@ Moran I statistic       Expectation          Variance
 </div>
 </div>
 <p>The code chunk above, moran.test() is used Moran’s test for spatial autocorrelation using a spatial weights matrix in weights list form.</p>
-<p>It can be observed that Z value, 0.433, is greater than zero. Therefore, it can be concluded non functional spatial distribution of water points are clusters and observations tend to be similar.</p>
+<section id="observation" class="level2">
+<h2 class="anchored" data-anchor-id="observation">Observation</h2>
+<p>It can be observed that Z value, 0.433, is greater than zero. Therefore, it can be concluded non functional spatial distribution of water points are clusters and observations tend to be similar. But before making final conclusion on statistical test, we will perform Monte Carlo Moran’s I simulation.</p>
+</section>
 <section id="computing-monte-carlos-morans-i" class="level2">
 <h2 class="anchored" data-anchor-id="computing-monte-carlos-morans-i">Computing Monte Carlo’s Moran’s I</h2>
 <p>Monte Carlo simulation is performed when there is a doubt that the assumptions of Moran’s I are true (normality and randomization).</p>
@@ -707,10 +732,10 @@ statistic = 0.43393, observed rank = 1000, p-value = 0.001
 alternative hypothesis: greater</code></pre>
 </div>
 </div>
-<section id="observations" class="level3">
-<h3 class="anchored" data-anchor-id="observations">Observations</h3>
+<section id="observations-1" class="level3">
+<h3 class="anchored" data-anchor-id="observations-1">Observations</h3>
 <p><strong>Null Hyposthesis</strong>: The distribution of non functional water points are random phenomenon.</p>
-<p><strong>Alternative Hypothesis</strong>: that the distribution non functional water points is spatially dependent through calculating the Moran's I statistic and Geary's C ratio for the data set</p>
+<p><strong>Alternative Hypothesis</strong>: that the distribution non functional water points is spatially dependent through calculating the Moran’s I statistic and Geary’s C ratio for the data set</p>
 <p>From the above results, we can observe p value is less than significant level of 0.05. Therefore, we can <strong>reject</strong> the null hypothesis. It can be concluded that distribution of non functional water points are spatially dependent through calculating the Moran’s I statistics ratio for the data set.</p>
 </section>
 </section>
@@ -796,8 +821,8 @@ method: Moran's I
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<section id="observations-1" class="level3">
-<h3 class="anchored" data-anchor-id="observations-1">Observations</h3>
+<section id="observations-2" class="level3">
+<h3 class="anchored" data-anchor-id="observations-2">Observations</h3>
 <p>From the above output, it can be observed that all the 6 lag spatial correlogram, p value is less than the significant value of 0.05. Therefore null hypothesis, the non functional water points location of values may be altered without affecting the information content of the data, is <strong>rejected</strong>.</p>
 </section>
 </section>
@@ -807,7 +832,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Local Indicators of Spatial Association or LISA are statistics that evaluate the existence of clusters in the spatial arrangement of a given variable. We are studying non functional spatial distribution of water points among census tracts in a Nigeria, local clusters in the rates mean that there are areas that have higher or lower rates than is to be expected by chance alone; that is, the values occurring are above or below those of a random distribution in space.</p>
 <section id="computing-local-morans-i" class="level2">
 <h2 class="anchored" data-anchor-id="computing-local-morans-i">Computing local Moran’s I</h2>
-<p>Computing local Moran’s I of <em>non functional water points</em> at the county level using <strong>localmoran() function in spdep.</strong></p>
+<p>Computing local Moran’s I of <strong><em>non functional water points</em></strong> at the county level using <strong>localmoran() function in spdep.</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fips <span class="ot">&lt;-</span> <span class="fu">order</span>(nga_wp<span class="sc">$</span>shapeName)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>localMI <span class="ot">&lt;-</span> <span class="fu">localmoran</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>, rswm_q)</span>
@@ -869,24 +894,64 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </section>
-<section id="mapping-both-local-morans-i-values-and-p-values" class="level2">
-<h2 class="anchored" data-anchor-id="mapping-both-local-morans-i-values-and-p-values">Mapping both local Moran’s I values and p values</h2>
-<p>Both the maps are plotted together for in depth comparison analysis.</p>
+<section id="mapping-both-local-morans-i-values-and-p-values-non-functional" class="level2">
+<h2 class="anchored" data-anchor-id="mapping-both-local-morans-i-values-and-p-values-non-functional">Mapping both local Moran’s I values and p values (Non Functional)</h2>
+<p>Both the maps are plotted together for in depth comparison analysis for non functional water points in Nigeria.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>localMI.map <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp.localMI) <span class="sc">+</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"Ii"</span>, </span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"pretty"</span>, </span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local moran statistics"</span>) <span class="sc">+</span></span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>pvalue.map <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp.localMI) <span class="sc">+</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"Pr.Ii"</span>, </span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">breaks=</span><span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="cn">Inf</span>),</span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette=</span><span class="st">"-Blues"</span>, </span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local Moran's I p-values"</span>) <span class="sc">+</span></span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(localMI.map, pvalue.map, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title=</span> <span class="st">"Local Moran's I Statistics"</span>,</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.size =</span> <span class="fl">0.7</span>,</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.fontface =</span> <span class="st">"bold"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$tm_layout
+$tm_layout$main.title
+[1] "Local Moran's I Statistics"
+
+$tm_layout$main.title.size
+[1] 0.7
+
+$tm_layout$main.title.fontface
+[1] "bold"
+
+$tm_layout$style
+[1] NA
+
+
+attr(,"class")
+[1] "tm"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>pvalue.map <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp.localMI) <span class="sc">+</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"Pr.Ii"</span>, </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">breaks=</span><span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="cn">Inf</span>),</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette=</span><span class="st">"-Blues"</span>, </span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local Moran's I p-values"</span>) <span class="sc">+</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title=</span> <span class="st">"Local Moran's p-values(Non Functional)"</span>,</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.size =</span> <span class="fl">0.7</span>,</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.fontface =</span> <span class="st">"bold"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$tm_layout
+$tm_layout$main.title
+[1] "Local Moran's p-values(Non Functional)"
+
+$tm_layout$main.title.size
+[1] 0.7
+
+$tm_layout$main.title.fontface
+[1] "bold"
+
+$tm_layout$style
+[1] NA
+
+
+attr(,"class")
+[1] "tm"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(localMI.map, pvalue.map, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Variable(s) "Ii" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</code></pre>
 </div>
@@ -894,18 +959,98 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<section id="observation-1" class="level3">
+<h3 class="anchored" data-anchor-id="observation-1">Observation</h3>
+<p>“Green” regions are <strong>outlier</strong> regions with with relatively low value in surrounding regions. When same locations are compared in “Local Moran’s I p value” map, their p value is less than significant value 0.05, therefore these outlier regions are statistically significant.</p>
+<p>“Light Orange” regions are <strong>clustered</strong> regions with relatively high value in surrounding regions. When these locations are compared with Local Moran’s p value map, their p values are more than significant value of 0.05, therefore, these clustered regions are not statistically significant.</p>
+</section>
+</section>
+<section id="mapping-both-local-morans-i-values-and-p-values-functional" class="level2">
+<h2 class="anchored" data-anchor-id="mapping-both-local-morans-i-values-and-p-values-functional">Mapping both local Moran’s I values and p values (Functional)</h2>
+<p>Both the maps are plotted together for in depth comparison analysis for functional water points in Nigeria.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>fips <span class="ot">&lt;-</span> <span class="fu">order</span>(nga_wp<span class="sc">$</span>shapeName)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>localMI_func <span class="ot">&lt;-</span> <span class="fu">localmoran</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt functional</span><span class="st">`</span>, rswm_q)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>nga_wp.localMI_func <span class="ot">&lt;-</span> <span class="fu">cbind</span>(nga_wp,localMI_func) <span class="sc">%&gt;%</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Pr.Ii =</span> Pr.z....E.Ii..)</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>localMI_func.map <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp.localMI_func) <span class="sc">+</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"Ii"</span>, </span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"pretty"</span>, </span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local moran statistics"</span>) <span class="sc">+</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title=</span> <span class="st">"Local Moran's I Statistics"</span>,</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.size =</span> <span class="fl">0.7</span>,</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.fontface =</span> <span class="st">"bold"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$tm_layout
+$tm_layout$main.title
+[1] "Local Moran's I Statistics"
+
+$tm_layout$main.title.size
+[1] 0.7
+
+$tm_layout$main.title.fontface
+[1] "bold"
+
+$tm_layout$style
+[1] NA
+
+
+attr(,"class")
+[1] "tm"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>func_pvalue.map <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp.localMI_func) <span class="sc">+</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"Pr.Ii"</span>, </span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">breaks=</span><span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="cn">Inf</span>),</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette=</span><span class="st">"-Blues"</span>, </span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local Moran's I p-values"</span>) <span class="sc">+</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title=</span> <span class="st">"Local Moran's p-values(Functional)"</span>,</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.size =</span> <span class="fl">0.7</span>,</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.fontface =</span> <span class="st">"bold"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$tm_layout
+$tm_layout$main.title
+[1] "Local Moran's p-values(Functional)"
+
+$tm_layout$main.title.size
+[1] 0.7
+
+$tm_layout$main.title.fontface
+[1] "bold"
+
+$tm_layout$style
+[1] NA
+
+
+attr(,"class")
+[1] "tm"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(localMI.map, pvalue.map, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Variable(s) "Ii" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="observation-2" class="level3">
+<h3 class="anchored" data-anchor-id="observation-2">Observation</h3>
+<p>“Green” regions are <strong>outlier</strong> regions with with relatively low value in surrounding regions. When same locations are compared in “Local Moran’s I p value” map, their p value is less than significant value 0.05, therefore these outlier regions are statistically significant.</p>
+<p>“Light Orange” regions are <strong>clustered</strong> regions with relatively high value in surrounding regions. When these locations are compared with Local Moran’s p value map, their p values are more than significant value of 0.05, therefore, these clustered regions are not statistically significant. But some regions in the north side has p value less than significant value, therefore those clustered areas are statistically significant regions for functional distribution of spatial water points in Nigeria.</p>
+</section>
 </section>
 </section>
 <section id="creating-lisa-cluster-map" class="level1">
 <h1>Creating LISA Cluster Map</h1>
 <p>It shows the significant locations color coded by type of spatial autocorrelation. The first step before we can generate the LISA cluster map is to plot the Moran scatterplot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>nci <span class="ot">&lt;-</span> <span class="fu">moran.plot</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>, rswm_q,</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels=</span><span class="fu">as.character</span>(nga_wp<span class="sc">$</span>shapeName), </span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">xlab=</span><span class="st">"Non-Functional waterpoints"</span>, </span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ylab=</span><span class="st">"Spatially Lag Non-functional waterpoints"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>nci <span class="ot">&lt;-</span> <span class="fu">moran.plot</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>, rswm_q,</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">labels=</span><span class="fu">as.character</span>(nga_wp<span class="sc">$</span>shapeName), </span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">xlab=</span><span class="st">"Non-Functional waterpoints"</span>, </span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ylab=</span><span class="st">"Spatially Lag Non-functional waterpoints"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p><strong>Outliers</strong>: It is significant and negative if location i is associated with relatively low values in surrounding locations.<br>
@@ -922,31 +1067,42 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>First, using <strong><em>scale()</em></strong> to centers and scales the variable. Here centering is done by subtracting the mean (omitting NAs) the corresponding columns, and scaling is done by dividing the (centered) variable by their standard deviations.</p>
 <p>The <strong><em>as.vector()</em></strong> added to the end is to make sure that the data type we get out of this is a vector, that map neatly into out dataframe.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>nga_wp<span class="sc">$</span>Z.nonfunc <span class="ot">&lt;-</span> <span class="fu">scale</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  as.vector </span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>nci2 <span class="ot">&lt;-</span> <span class="fu">moran.plot</span>(nga_wp<span class="sc">$</span>Z.nonfunc, rswm_q,</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels=</span><span class="fu">as.character</span>(nga_wp<span class="sc">$</span>shapeName),</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">xlab=</span><span class="st">"z-no functional points"</span>, </span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ylab=</span><span class="st">"Spatially Lag non functional points"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>nga_wp<span class="sc">$</span>Z.nonfunc <span class="ot">&lt;-</span> <span class="fu">scale</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  as.vector </span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>nci2 <span class="ot">&lt;-</span> <span class="fu">moran.plot</span>(nga_wp<span class="sc">$</span>Z.nonfunc, rswm_q,</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels=</span><span class="fu">as.character</span>(nga_wp<span class="sc">$</span>shapeName),</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">xlab=</span><span class="st">"z-no functional points"</span>, </span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ylab=</span><span class="st">"Spatially Lag non functional points"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p><strong>NOTE: One of the drawback of Moran’s I scatterplot is that it does not indicate whether the above regions are significant or not.</strong></p>
 </section>
-<section id="preparing-lisa-map-classes" class="level2">
-<h2 class="anchored" data-anchor-id="preparing-lisa-map-classes">Preparing LISA Map Classes</h2>
+<section id="preparing-lisa-map-classes-non-functional" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-lisa-map-classes-non-functional">Preparing LISA Map Classes (Non Functional)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>quadrant <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode=</span><span class="st">"numeric"</span>,<span class="at">length=</span><span class="fu">nrow</span>(localMI))</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>nga_wp<span class="sc">$</span>lag_non_func_points <span class="ot">&lt;-</span> <span class="fu">lag.listw</span>(rswm_q, nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>)</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>DV <span class="ot">&lt;-</span> nga_wp<span class="sc">$</span>lag_non_func_points <span class="sc">-</span> <span class="fu">mean</span>(nga_wp<span class="sc">$</span>lag_non_func_points)     </span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>C_mI <span class="ot">&lt;-</span> localMI[,<span class="dv">1</span>] <span class="sc">-</span> <span class="fu">mean</span>(localMI[,<span class="dv">1</span>])    </span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>signif <span class="ot">&lt;-</span> <span class="fl">0.05</span>       </span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>quadrant[DV <span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI<span class="sc">&gt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>quadrant[DV <span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI<span class="sc">&lt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>quadrant[DV <span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI<span class="sc">&lt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">3</span>  </span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>quadrant[DV <span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI<span class="sc">&gt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">4</span>      </span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>quadrant[localMI[,<span class="dv">5</span>]<span class="sc">&gt;</span>signif] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>quadrant <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode=</span><span class="st">"numeric"</span>,<span class="at">length=</span><span class="fu">nrow</span>(localMI))</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>nga_wp<span class="sc">$</span>lag_non_func_points <span class="ot">&lt;-</span> <span class="fu">lag.listw</span>(rswm_q, nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>DV <span class="ot">&lt;-</span> nga_wp<span class="sc">$</span>lag_non_func_points <span class="sc">-</span> <span class="fu">mean</span>(nga_wp<span class="sc">$</span>lag_non_func_points)     </span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>C_mI <span class="ot">&lt;-</span> localMI[,<span class="dv">1</span>] <span class="sc">-</span> <span class="fu">mean</span>(localMI[,<span class="dv">1</span>])    </span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>signif <span class="ot">&lt;-</span> <span class="fl">0.05</span>       </span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>quadrant[DV <span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI<span class="sc">&gt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>quadrant[DV <span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI<span class="sc">&lt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>quadrant[DV <span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI<span class="sc">&lt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">3</span>  </span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>quadrant[DV <span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI<span class="sc">&gt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">4</span>      </span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>quadrant[localMI[,<span class="dv">5</span>]<span class="sc">&gt;</span>signif] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>quadrant_func <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode=</span><span class="st">"numeric"</span>,<span class="at">length=</span><span class="fu">nrow</span>(localMI_func))</span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>nga_wp<span class="sc">$</span>lag_func_points <span class="ot">&lt;-</span> <span class="fu">lag.listw</span>(rswm_q, nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt functional</span><span class="st">`</span>)</span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>DV_func <span class="ot">&lt;-</span> nga_wp<span class="sc">$</span>lag_func_points <span class="sc">-</span> <span class="fu">mean</span>(nga_wp<span class="sc">$</span>lag_func_points)     </span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>C_mI_func <span class="ot">&lt;-</span> localMI[,<span class="dv">1</span>] <span class="sc">-</span> <span class="fu">mean</span>(localMI[,<span class="dv">1</span>])    </span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>signif <span class="ot">&lt;-</span> <span class="fl">0.05</span>       </span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>quadrant[DV_func <span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI_func<span class="sc">&gt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>quadrant[DV_func <span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI_func<span class="sc">&lt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a>quadrant[DV_func <span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI_func<span class="sc">&lt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">3</span>  </span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>quadrant[DV_func <span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI_func<span class="sc">&gt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">4</span>      </span>
+<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a>quadrant[localMI[,<span class="dv">5</span>]<span class="sc">&gt;</span>signif] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For each country/administrative region, LISA classification of the scores are assigned as follows:</p>
 <ul>
@@ -956,59 +1112,100 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><p>If DV &gt; 0 &amp; C_mI &lt; 0; it is categorised as “High-Low” [2]</p></li>
 </ul>
 </section>
-<section id="plotting-lisa-map" class="level2">
-<h2 class="anchored" data-anchor-id="plotting-lisa-map">Plotting LISA Map</h2>
+<section id="plotting-lisa-map-non-functional" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-lisa-map-non-functional">Plotting LISA Map (Non Functional)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>nga_wp.localMI<span class="sc">$</span>quadrant <span class="ot">&lt;-</span> quadrant</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#ffffff"</span>, <span class="st">"#2c7bb6"</span>, <span class="st">"#abd9e9"</span>, <span class="st">"#fdae61"</span>, <span class="st">"#d7191c"</span>)</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"insignificant"</span>, <span class="st">"low-low"</span>, <span class="st">"low-high"</span>, <span class="st">"high-low"</span>, <span class="st">"high-high"</span>)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(nga_wp.localMI) <span class="sc">+</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"quadrant"</span>, </span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"cat"</span>, </span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> colors[<span class="fu">c</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(quadrant)))<span class="sc">+</span><span class="dv">1</span>], </span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">labels =</span> clusters[<span class="fu">c</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(quadrant)))<span class="sc">+</span><span class="dv">1</span>]) <span class="sc">+</span></span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_view</span>(<span class="at">set.zoom.limits =</span> <span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">17</span>)) <span class="sc">+</span></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>For effective interpretation, it is better to plot <strong>both the local Moran's I values map and its corresponding p-values</strong> map next to each other.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>nonfunc <span class="ot">&lt;-</span> <span class="fu">qtm</span>(nga_wp, <span class="st">"wpt non-functional"</span>)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>nga_wp.localMI<span class="sc">$</span>quadrant <span class="ot">&lt;-</span> quadrant</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#ffffff"</span>, <span class="st">"#2c7bb6"</span>, <span class="st">"#abd9e9"</span>, <span class="st">"#fdae61"</span>, <span class="st">"#d7191c"</span>)</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"insignificant"</span>, <span class="st">"low-low"</span>, <span class="st">"low-high"</span>, <span class="st">"high-low"</span>, <span class="st">"high-high"</span>)</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>LISAmap <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp.localMI) <span class="sc">+</span></span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"quadrant"</span>, </span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"cat"</span>, </span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> colors[<span class="fu">c</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(quadrant)))<span class="sc">+</span><span class="dv">1</span>], </span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">labels =</span> clusters[<span class="fu">c</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(quadrant)))<span class="sc">+</span><span class="dv">1</span>],</span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">popup.vars=</span> <span class="fu">c</span>(<span class="st">""</span>)) <span class="sc">+</span></span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_view</span>(<span class="at">set.zoom.limits =</span> <span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">17</span>)) <span class="sc">+</span></span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)</span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(nonfunc, LISAmap, </span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">asp=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>nga_wp.localMI<span class="sc">$</span>quadrant <span class="ot">&lt;-</span> quadrant</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#ffffff"</span>, <span class="st">"#2c7bb6"</span>, <span class="st">"#abd9e9"</span>, <span class="st">"#fdae61"</span>, <span class="st">"#d7191c"</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"insignificant"</span>, <span class="st">"low-low"</span>, <span class="st">"low-high"</span>, <span class="st">"high-low"</span>, <span class="st">"high-high"</span>)</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(nga_wp.localMI) <span class="sc">+</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"quadrant"</span>, </span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"cat"</span>, </span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> colors[<span class="fu">c</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(quadrant)))<span class="sc">+</span><span class="dv">1</span>], </span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">labels =</span> clusters[<span class="fu">c</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(quadrant)))<span class="sc">+</span><span class="dv">1</span>],</span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">popup.vars =</span> <span class="fu">c</span>(<span class="st">""</span>)) <span class="sc">+</span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_view</span>(<span class="at">set.zoom.limits =</span> <span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">17</span>)) <span class="sc">+</span></span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<section id="observation" class="level3">
-<h3 class="anchored" data-anchor-id="observation">Observation:</h3>
+<p>For effective interpretation, it is better to plot <strong>both the wpt non functional map and its LISA classification</strong> map next to each other.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>nonfunc <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp)<span class="sc">+</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tm_fill</span>(<span class="st">"wpt non-functional"</span>,</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">style=</span> <span class="st">"jenks"</span>,</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">n=</span><span class="dv">6</span>,</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">title=</span> <span class="st">"wpt non functional"</span>)<span class="sc">+</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tm_layout</span>(<span class="at">main.title=</span> <span class="st">"NonFunctional WaterPoints"</span>)<span class="sc">+</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>nga_wp.localMI<span class="sc">$</span>quadrant <span class="ot">&lt;-</span> quadrant</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#ffffff"</span>, <span class="st">"#2c7bb6"</span>, <span class="st">"#abd9e9"</span>, <span class="st">"#fdae61"</span>, <span class="st">"#d7191c"</span>)</span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"insignificant"</span>, <span class="st">"low-low"</span>, <span class="st">"low-high"</span>, <span class="st">"high-low"</span>, <span class="st">"high-high"</span>)</span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>LISAmap <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp.localMI) <span class="sc">+</span></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"quadrant"</span>, </span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"cat"</span>, </span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> colors[<span class="fu">c</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(quadrant)))<span class="sc">+</span><span class="dv">1</span>], </span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">labels =</span> clusters[<span class="fu">c</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(quadrant)))<span class="sc">+</span><span class="dv">1</span>],</span>
+<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">popup.vars=</span> <span class="fu">c</span>(<span class="st">""</span>)) <span class="sc">+</span></span>
+<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_view</span>(<span class="at">set.zoom.limits =</span> <span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">17</span>)) <span class="sc">+</span></span>
+<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title=</span> <span class="st">"LISA map with classification"</span>)</span>
+<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(nonfunc, LISAmap, </span>
+<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">asp=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="observation-3" class="level3">
+<h3 class="anchored" data-anchor-id="observation-3">Observation</h3>
+<p>It can be observed that regions with more than 100 non functional water points are clustered regions with relatively high values of the surrounding regions as observed from the LISA classification map. All the high-high values are the <strong>clusters where</strong> indicates high spatial correlation where non functional water points areas are clustered closely together. “Dark Blue”, low low regions are the clusters of low frequency of non functional spatial distribution of water points.</p>
 </section>
+</section>
+<section id="plotting-lisa-map-functional" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-lisa-map-functional">Plotting LISA Map (Functional)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>func <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp)<span class="sc">+</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tm_fill</span>(<span class="st">"wpt functional"</span>,</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">style=</span> <span class="st">"jenks"</span>,</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">n=</span><span class="dv">6</span>,</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">title=</span> <span class="st">"wpt functional"</span>)<span class="sc">+</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tm_layout</span>(<span class="at">main.title=</span> <span class="st">"Functional WaterPoints"</span>)<span class="sc">+</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>nga_wp.localMI_func<span class="sc">$</span>quadrant_func <span class="ot">&lt;-</span> quadrant</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#ffffff"</span>, <span class="st">"#2c7bb6"</span>, <span class="st">"#abd9e9"</span>, <span class="st">"#fdae61"</span>, <span class="st">"#d7191c"</span>)</span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"insignificant"</span>, <span class="st">"low-low"</span>, <span class="st">"low-high"</span>, <span class="st">"high-low"</span>, <span class="st">"high-high"</span>)</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>LISAmap_func <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp.localMI_func) <span class="sc">+</span></span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"quadrant_func"</span>, </span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"cat"</span>, </span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> colors[<span class="fu">c</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(quadrant)))<span class="sc">+</span><span class="dv">1</span>], </span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">labels =</span> clusters[<span class="fu">c</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(quadrant)))<span class="sc">+</span><span class="dv">1</span>],</span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">popup.vars=</span> <span class="fu">c</span>(<span class="st">""</span>)) <span class="sc">+</span></span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_view</span>(<span class="at">set.zoom.limits =</span> <span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">17</span>)) <span class="sc">+</span></span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title=</span> <span class="st">"LISA map with classification"</span>)</span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(func, LISAmap_func, </span>
+<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">asp=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Observations</strong>: All the high-high values are the <strong>clusters where</strong> indicates high spatial correlation where functional water points areas are clustered closely together. “Dark Blue”, low low regions are the clusters of low frequency of functional spatial distribution of water points.</p>
 </section>
 </section>
 <section id="hot-spot-and-cold-spot-area-analysis" class="level1">
 <h1>Hot spot and Cold spot Area Analysis</h1>
 <p>Beside detecting cluster and outliers, localised spatial statistics can be also used to detect hot spot and/or cold spot areas.</p>
-<p><strong>"Hot Spot" is used to describe a region or value that is higher relative to its surroundings.</strong></p>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"></h2>
-<p>Getis and Ord’s G-Statistics</p>
+<p><strong>“Hot Spot” is used to describe a region or value that is higher relative to its surroundings.</strong></p>
+<section id="getis-and-ords-g-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="getis-and-ords-g-statistics">Getis and Ord’s G-Statistics</h2>
 <p>It is an alternative spatial statistics to detect spatial anomalies, looking at neighbors within a defined proximity to identify where either high or low values clutser spatially. Statistically significant <strong>hot-spots</strong> are recognised as areas of high values where other areas within a neighbourhood range also share high values too. The analysis consists of three steps:</p>
 <ul>
 <li><p>Deriving spatial weight matrix</p></li>
@@ -1028,9 +1225,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Coordinates in separate dataframe is required. The mapping function applies a given function to each element of a vector and returns a vector of the same length. Our input vector will be the geometry column of us.bound. Our function will be <em>st_centroid()</em>. We will be using map_dbl variation of map from the purrr package.</p>
 <p>Calculation longitude, first value in each centroid; latitude, second value in each centroid; and then combining both longitude and latitude using the code chunk below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>longitude <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(nga_wp<span class="sc">$</span>geometry, <span class="sc">~</span><span class="fu">st_centroid</span>(.x)[[<span class="dv">1</span>]])</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>latitude <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(nga_wp<span class="sc">$</span>geometry, <span class="sc">~</span><span class="fu">st_centroid</span>(.x)[[<span class="dv">2</span>]])</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">cbind</span>(longitude, latitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>longitude <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(nga_wp<span class="sc">$</span>geometry, <span class="sc">~</span><span class="fu">st_centroid</span>(.x)[[<span class="dv">1</span>]])</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>latitude <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(nga_wp<span class="sc">$</span>geometry, <span class="sc">~</span><span class="fu">st_centroid</span>(.x)[[<span class="dv">2</span>]])</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">cbind</span>(longitude, latitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="determine-the-cut-off-distance" class="level3">
 <h3 class="anchored" data-anchor-id="determine-the-cut-off-distance">Determine the cut-off distance</h3>
@@ -1042,9 +1239,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><p>Remove the list structure of the returned object by using <strong><em>unlist()</em></strong></p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>k1 <span class="ot">&lt;-</span> <span class="fu">knn2nb</span>(<span class="fu">knearneigh</span>(coords))</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>k1dists <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">nbdists</span>(k1, coords, <span class="at">longlat =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(k1dists)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>k1 <span class="ot">&lt;-</span> <span class="fu">knn2nb</span>(<span class="fu">knearneigh</span>(coords))</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>k1dists <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">nbdists</span>(k1, coords, <span class="at">longlat =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(k1dists)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   2.662  12.815  20.242  22.031  27.706  71.661 </code></pre>
@@ -1057,8 +1254,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Using <strong><em>dnearneigh(),</em></strong> distance weight matrix is computed as shown in the code chunk below.</p>
 <p>The functions <strong><em>dnearneigh()</em></strong> identifies neighbours of region points by Euclidean distance in the metric of the points between lower (greater than or equal to (changed from version 1.1-7)) and upper (less than or equal to) bounds, or with longlat = TRUE, by Great Circle distance in kilometers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>wm_d62 <span class="ot">&lt;-</span> <span class="fu">dnearneigh</span>(coords, <span class="dv">0</span>, <span class="dv">62</span>, <span class="at">longlat =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>wm_d62</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>wm_d62 <span class="ot">&lt;-</span> <span class="fu">dnearneigh</span>(coords, <span class="dv">0</span>, <span class="dv">62</span>, <span class="at">longlat =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>wm_d62</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Neighbour list object:
 Number of regions: 774 
@@ -1071,8 +1268,8 @@ Average number of links: 17.86822
 </div>
 <p>Next, using <strong><em>nb2listw()</em></strong> nb objects are converted into spatial weight objects.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>wm62_lw <span class="ot">&lt;-</span> <span class="fu">nb2listw</span>(wm_d62, <span class="at">style =</span> <span class="st">'B'</span>)</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wm62_lw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>wm62_lw <span class="ot">&lt;-</span> <span class="fu">nb2listw</span>(wm_d62, <span class="at">style =</span> <span class="st">'B'</span>)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wm62_lw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Characteristics of weights list object:
 Neighbour list object:
@@ -1101,15 +1298,15 @@ Weights constants summary:
 B 768 589824 13830 27660 1591400</code></pre>
 </div>
 </div>
+<p>From the <strong>summary report</strong> it can be observed that there are on an average 17 neighbors of each regions under Binary Weight style. There are 6 regions with no neighbors. There are 12 regions which are least connected. 619th region has the most number of neighbors, 57 links.</p>
 </section>
-<section id="section-1" class="level3">
-<h3 class="anchored" data-anchor-id="section-1"></h3>
-<p>Computing Adaptive distance based matrix</p>
+<section id="computing-adaptive-distance-based-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="computing-adaptive-distance-based-matrix">** **Computing Adaptive distance based matrix</h3>
 <p>More densely settled areas (usually the urban areas) tend to have more neighbors and the less densely settled areas (usually the rural counties) tend to have lesser neighbors.</p>
 <p>It is possible to control the numbers of neighbors directly using k-nearest neighbors, either accepting asymmetric neighbors or imposing symmetry as shown in the code chunk below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>knn <span class="ot">&lt;-</span> <span class="fu">knn2nb</span>(<span class="fu">knearneigh</span>(coords, <span class="at">k=</span><span class="dv">8</span>))</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>knn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>knn <span class="ot">&lt;-</span> <span class="fu">knn2nb</span>(<span class="fu">knearneigh</span>(coords, <span class="at">k=</span><span class="dv">8</span>))</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>knn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Neighbour list object:
 Number of regions: 774 
@@ -1122,8 +1319,8 @@ Non-symmetric neighbours list</code></pre>
 <p>From the above summary report, the neighbor list is converted into non symmetric format with average of 8 neighbor links for each region.</p>
 <p>Next, <strong><em>nb2listw()</em></strong> is used to convert the nb object into spatial weights object.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>knn_lw <span class="ot">&lt;-</span> <span class="fu">nb2listw</span>(knn, <span class="at">style =</span> <span class="st">'B'</span>)</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(knn_lw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>knn_lw <span class="ot">&lt;-</span> <span class="fu">nb2listw</span>(knn, <span class="at">style =</span> <span class="st">'B'</span>)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(knn_lw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Characteristics of weights list object:
 Neighbour list object:
@@ -1147,7 +1344,7 @@ Weights constants summary:
 B 774 599076 6192 11152 201942</code></pre>
 </div>
 </div>
-<p>Style B is the basic binary code.</p>
+<p>Style B is the basic binary code. Using this style there are average of 8 neighbor links to each region.</p>
 </section>
 </section>
 </section>
@@ -1160,9 +1357,9 @@ B 774 599076 6192 11152 201942</code></pre>
 <section id="gi-statistics-using-fixed-distance" class="level2">
 <h2 class="anchored" data-anchor-id="gi-statistics-using-fixed-distance">Gi statistics using fixed distance</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>fips <span class="ot">&lt;-</span> <span class="fu">order</span>(nga_wp<span class="sc">$</span>shapeName)</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>gi.fixed <span class="ot">&lt;-</span> <span class="fu">localG</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>, wm62_lw)</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>gi.fixed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>fips <span class="ot">&lt;-</span> <span class="fu">order</span>(nga_wp<span class="sc">$</span>shapeName)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>gi.fixed <span class="ot">&lt;-</span> <span class="fu">localG</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>, wm62_lw)</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>gi.fixed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] -2.660093336 -2.776740389 -1.123334979  0.150955122 -0.699687029
   [6]  3.377909001 -1.259359280 -2.005273450  1.299037089 -3.209256619
@@ -1381,12 +1578,12 @@ attr(,"class")
 [1] "localG"</code></pre>
 </div>
 </div>
-<p>The output of localG() is a vector of G or Gstar values, with attributes "gstari" set to TRUE or FALSE, "call" set to the function call, and class "localG".</p>
+<p>The output of localG() is a vector of G or Gstar values, with attributes “gstari” set to TRUE or FALSE, “call” set to the function call, and class “localG”.</p>
 <p>The Gi statistics is represented as a Z-score. Greater values represent a greater intensity of clustering and the direction (positive or negative) indicates high or low clusters.</p>
 <p>Joining the Gi values to their corresponding nga_wp sf data frame:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>nga_wp.gi <span class="ot">&lt;-</span> <span class="fu">cbind</span>(nga_wp, <span class="fu">as.matrix</span>(gi.fixed)) <span class="sc">%&gt;%</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gstat_fixed =</span> as.matrix.gi.fixed.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>nga_wp.gi <span class="ot">&lt;-</span> <span class="fu">cbind</span>(nga_wp, <span class="fu">as.matrix</span>(gi.fixed)) <span class="sc">%&gt;%</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gstat_fixed =</span> as.matrix.gi.fixed.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Following steps were followed in the above code chunk:</p>
 <ul>
@@ -1399,36 +1596,34 @@ attr(,"class")
 <h2 class="anchored" data-anchor-id="mapping-gi-values-with-fixed-distance-weights">Mapping Gi values with fixed distance weights</h2>
 <p>The code chunk below shows the functions used to map the Gi values derived using fixed distance weight matrix.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>nonfunc <span class="ot">&lt;-</span> <span class="fu">qtm</span>(nga_wp, <span class="st">"wpt non-functional"</span>)</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>Gimap <span class="ot">&lt;-</span><span class="fu">tm_shape</span>(nga_wp.gi) <span class="sc">+</span></span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"gstat_fixed"</span>, </span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"pretty"</span>,</span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette=</span><span class="st">"-RdBu"</span>,</span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local Gi"</span>) <span class="sc">+</span></span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(nonfunc, Gimap, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>nonfunc <span class="ot">&lt;-</span> <span class="fu">qtm</span>(nga_wp, <span class="st">"wpt non-functional"</span>)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>Gimap <span class="ot">&lt;-</span><span class="fu">tm_shape</span>(nga_wp.gi) <span class="sc">+</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"gstat_fixed"</span>, </span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"pretty"</span>,</span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette=</span><span class="st">"-RdBu"</span>,</span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local Gi"</span>) <span class="sc">+</span></span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(nonfunc, Gimap, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Variable(s) "gstat_fixed" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
+<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<section id="observations-2" class="level3">
-<h3 class="anchored" data-anchor-id="observations-2"><strong>Observations</strong></h3>
-<p>It can be observed from wpt non functional map that city “Ifelodun” has the highest non functional spatial distribution of water points. According to local Gi map, when Gi statistics fixed distance weight method was used for calculation in which all the features should have atleast one neighbor, then hot spot region with maximum non functional water points is “Moba” as it is significant and positive with relatively high values of the surrounding locations.</p>
-</section>
+<p><strong>Observations<br>
+</strong> It can be observed from wpt non functional map that city “Ifelodun” has the highest non functional spatial distribution of water points. According to local Gi map, when Gi statistics fixed distance weight method was used for calculation in which all the features should have atleast one neighbor, then hot spot region with maximum non functional water points is “Moba” as it is significant and positive with relatively high values of the surrounding locations.</p>
 </section>
 <section id="gi-statistics-using-adaptive-distance" class="level2">
 <h2 class="anchored" data-anchor-id="gi-statistics-using-adaptive-distance">Gi statistics using adaptive distance</h2>
 <p>The code chunk below are used to compute the Gi values for wpt non functional water point areas by using an adaptive distance weight matrix <strong><em>(i.e knb_lw)</em>.</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>fips <span class="ot">&lt;-</span> <span class="fu">order</span>(nga_wp<span class="sc">$</span>shapeName)</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>gi.adaptive <span class="ot">&lt;-</span> <span class="fu">localG</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>, knn_lw)</span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>nga_wp.gi <span class="ot">&lt;-</span> <span class="fu">cbind</span>(nga_wp, <span class="fu">as.matrix</span>(gi.adaptive)) <span class="sc">%&gt;%</span></span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gstat_adaptive =</span> as.matrix.gi.adaptive.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>fips <span class="ot">&lt;-</span> <span class="fu">order</span>(nga_wp<span class="sc">$</span>shapeName)</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>gi.adaptive <span class="ot">&lt;-</span> <span class="fu">localG</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>, knn_lw)</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>nga_wp.gi <span class="ot">&lt;-</span> <span class="fu">cbind</span>(nga_wp, <span class="fu">as.matrix</span>(gi.adaptive)) <span class="sc">%&gt;%</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gstat_adaptive =</span> as.matrix.gi.adaptive.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="mapping-gi-values-with-the-adaptive-distance-weights" class="level2">
@@ -1437,24 +1632,24 @@ attr(,"class")
 <p>Using, choropleth mapping functions of <strong>tmap</strong> package location of hot spot and cold spot areas are visualized.</p>
 <p>The code chunk below shows the functions used to map the Gi values derived using fixed distance weight matrix.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>nonfunc <span class="ot">&lt;-</span> <span class="fu">qtm</span>(nga_wp, <span class="st">"wpt non-functional"</span>)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>Gimap <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp.gi) <span class="sc">+</span> </span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"gstat_adaptive"</span>, </span>
-<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"pretty"</span>, </span>
-<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette=</span><span class="st">"-RdBu"</span>, </span>
-<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local Gi"</span>) <span class="sc">+</span> </span>
-<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
-<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(nonfunc, </span>
-<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>             Gimap, </span>
-<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">asp=</span><span class="dv">1</span>, </span>
-<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>nonfunc <span class="ot">&lt;-</span> <span class="fu">qtm</span>(nga_wp, <span class="st">"wpt non-functional"</span>)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>Gimap <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp.gi) <span class="sc">+</span> </span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"gstat_adaptive"</span>, </span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"pretty"</span>, </span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette=</span><span class="st">"-RdBu"</span>, </span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local Gi"</span>) <span class="sc">+</span> </span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(nonfunc, </span>
+<span id="cb78-11"><a href="#cb78-11" aria-hidden="true" tabindex="-1"></a>             Gimap, </span>
+<span id="cb78-12"><a href="#cb78-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">asp=</span><span class="dv">1</span>, </span>
+<span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Variable(s) "gstat_adaptive" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid" width="672"></p>
+<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <section id="observations-3" class="level3">
@@ -1466,11 +1661,9 @@ attr(,"class")
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
 <p>As the need for fresh water is a necessary for every country. Failure of water points in Nigeria contribute significantly as one of the factors that cannot be controlled in short or medium term. Water points in urban areas perform worse than those in rural areas. <a href="https://www.researchgate.net/publication/324091771_Why_Are_So_Many_Water_Points_in_Nigeria_Non-Functional_An_Empirical_Analysis_of_Contributing_Factors">This is likely due to urban overcrowding amid rapid increases in urban populations driven by rural-urban migration. The availability of pumps is likely to be much higher per capita in rural than in urban areas.</a></p>
-<p>The geospatial analysis of non functional spatial distribution of water points using Global and Local measures of Spatial Autocorrelation had computed great insights from the large data sets of Nigeria’s geoboundaries and water points. The LISA analysis helped in getting the Hot spot and cold spot areas of non functional water points in Nigeria. Using Chloropleth mapping we found out the functional, non functional and unknown water point regions. Using Moran’s I statistical test we concluded whether the regions were clustered or dispersed and observations tend to be similar or dissimilar. Using Thematic and Analytical Mapping spatial distribution of functional and non-functional water point rate at LGA level are analysed.</p>
-<section id="section-2" class="level2">
-<h2 class="anchored" data-anchor-id="section-2"></h2>
-<p>Future Impacts/Suggestions</p>
-</section>
+<p>The geospatial analysis of functional and non functional spatial distribution of water points using Global and Local measures of Spatial Autocorrelation had computed great insights from the large data sets of Nigeria’s geoboundaries and water points. The LISA analysis helped in getting the Hot spot and cold spot areas of non functional water points in Nigeria. Using Chloropleth mapping we found out the functional, non functional and unknown water point regions. Using Moran’s I statistical test we concluded whether the regions were clustered or dispersed and observations tend to be similar or dissimilar. Using Thematic and Analytical Mapping spatial distribution of functional and non-functional water point rate at LGA level are analysed.</p>
+<p>In this data set, we used row standardization parameter as this method is effective when polygons are similar in size and distribution, and when spatial relationships are a function of polygon proximity (the<br>
+idea that if two polygons share a boundary, spatial interaction between them increases. Also for this data set to find hot spot and cold spot area analaysis, the inverse method is more appropriate as the data was continuous and model processes closer two features in the space that most likely influence each other.</p>
 </section>
 <section id="acknowledgement" class="level1">
 <h1>Acknowledgement</h1>
@@ -1485,8 +1678,8 @@ attr(,"class")
 <li><p><a href="https://www.researchgate.net/publication/324091771_Why_Are_So_Many_Water_Points_in_Nigeria_Non-Functional_An_Empirical_Analysis_of_Contributing_Factors">Research Paper, Why Are So Many Water Points in Nigeria Non-Functional?</a></p></li>
 </ul>
 </section>
-<section id="section-3" class="level2">
-<h2 class="anchored" data-anchor-id="section-3"></h2>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
 
 
 </section>
