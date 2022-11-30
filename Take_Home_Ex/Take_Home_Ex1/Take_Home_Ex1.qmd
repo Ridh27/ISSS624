@@ -750,7 +750,7 @@ Using ***dnearneigh(),*** distance weight matrix is computed as shown in the cod
 The functions ***dnearneigh()*** identifies neighbours of region points by Euclidean distance in the metric of the points between lower (greater than or equal to (changed from version 1.1-7)) and upper (less than or equal to) bounds, or with longlat = TRUE, by Great Circle distance in kilometers.
 
 ```{R}
-wm_d62 <- dnearneigh(coords, 0, 62, longlat = TRUE)
+wm_d62 <- dnearneigh(coords, 0, 71, longlat = TRUE)
 wm_d62
 ```
 
@@ -761,7 +761,7 @@ wm62_lw <- nb2listw(wm_d62, style = 'B')
 summary(wm62_lw)
 ```
 
-From the **summary report** it can be observed that there are on an average 17 neighbors of each regions under Binary Weight style. There are 6 regions with no neighbors. There are 12 regions which are least connected. 619th region has the most number of neighbors, 57 links.
+From the **summary report** it can be observed that there are on an average 22 neighbors of each regions under Binary Weight style. There are 2 regions with no neighbors. There are 5 regions which are least connected and 4 regions which has most number of links.
 
 ### \*\* \*\*Computing Adaptive distance based matrix
 
