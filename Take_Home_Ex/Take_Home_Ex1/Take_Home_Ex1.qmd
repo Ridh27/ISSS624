@@ -623,17 +623,6 @@ quadrant[DV >0 & C_mI<0] <- 2
 quadrant[DV <0 & C_mI<0] <- 3  
 quadrant[DV >0 & C_mI>0] <- 4      
 quadrant[localMI[,5]>signif] <- 0
-
-quadrant_func <- vector(mode="numeric",length=nrow(localMI_func))
-nga_wp$lag_func_points <- lag.listw(rswm_q, nga_wp$`wpt functional`)
-DV_func <- nga_wp$lag_func_points - mean(nga_wp$lag_func_points)     
-C_mI_func <- localMI[,1] - mean(localMI[,1])    
-signif <- 0.05       
-quadrant[DV_func <0 & C_mI_func>0] <- 1
-quadrant[DV_func >0 & C_mI_func<0] <- 2
-quadrant[DV_func <0 & C_mI_func<0] <- 3  
-quadrant[DV_func >0 & C_mI_func>0] <- 4      
-quadrant[localMI[,5]>signif] <- 0
 ```
 
 For each country/administrative region, LISA classification of the scores are assigned as follows:
@@ -694,38 +683,7 @@ tmap_arrange(nonfunc, LISAmap,
 
 ### Observation
 
-It can be observed that regions with more than 100 non functional water points are clustered regions with relatively high values of the surrounding regions as observed from the LISA classification map. All the high-high values are the **clusters where** indicates high spatial correlation where non functional water points areas are clustered closely together. "Dark Blue", low low regions are the clusters of low frequency of non functional spatial distribution of water points.
-
-## Plotting LISA Map (Functional)
-
-```{R}
-func <- tm_shape(nga_wp)+
-      tm_fill("wpt functional",
-              style= "jenks",
-              n=6,
-              title= "wpt functional")+
-      tm_layout(main.title= "Functional WaterPoints")+
-      tm_borders(alpha=0.5)
-
-nga_wp.localMI_func$quadrant_func <- quadrant
-colors <- c("#ffffff", "#2c7bb6", "#abd9e9", "#fdae61", "#d7191c")
-clusters <- c("insignificant", "low-low", "low-high", "high-low", "high-high")
-
-LISAmap_func <- tm_shape(nga_wp.localMI_func) +
-  tm_fill(col = "quadrant_func", 
-          style = "cat", 
-          palette = colors[c(sort(unique(quadrant)))+1], 
-          labels = clusters[c(sort(unique(quadrant)))+1],
-          popup.vars= c("")) +
-  tm_view(set.zoom.limits = c(11,17)) +
-  tm_borders(alpha=0.5)+
-  tm_layout(main.title= "LISA map with classification")
-
-tmap_arrange(func, LISAmap_func, 
-             asp=1, ncol=2)
-```
-
-**Observations**: All the high-high values are the **clusters where** indicates high spatial correlation where functional water points areas are clustered closely together. "Dark Blue", low low regions are the clusters of low frequency of functional spatial distribution of water points.
+It can be observed that regions with more than 100 non functional water points are clustered regions with relatively high values of the surrounding regions as observed from the LISA classification map. All the high-high values are the **clusters where** indicates high spatial correlation where non functional water points areas are clustered closely together. "Dark Blue", low low regions are the clusters of low frequency of non functional spatial distribution of water points. That means north east region of Nigeria has high frequency of **functional water points** distribution.
 
 # Hot spot and Cold spot Area Analysis
 
@@ -805,7 +763,7 @@ summary(wm62_lw)
 
 From the **summary report** it can be observed that there are on an average 17 neighbors of each regions under Binary Weight style. There are 6 regions with no neighbors. There are 12 regions which are least connected. 619th region has the most number of neighbors, 57 links.
 
-### **  **Computing Adaptive distance based matrix
+### \*\* \*\*Computing Adaptive distance based matrix
 
 More densely settled areas (usually the urban areas) tend to have more neighbors and the less densely settled areas (usually the rural counties) tend to have lesser neighbors.
 

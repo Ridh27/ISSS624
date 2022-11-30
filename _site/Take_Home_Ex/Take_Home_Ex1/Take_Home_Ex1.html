@@ -289,7 +289,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#observation-3" id="toc-observation-3" class="nav-link" data-scroll-target="#observation-3">Observation</a></li>
   </ul></li>
-  <li><a href="#plotting-lisa-map-functional" id="toc-plotting-lisa-map-functional" class="nav-link" data-scroll-target="#plotting-lisa-map-functional">Plotting LISA Map (Functional)</a></li>
   </ul></li>
   <li><a href="#hot-spot-and-cold-spot-area-analysis" id="toc-hot-spot-and-cold-spot-area-analysis" class="nav-link" data-scroll-target="#hot-spot-and-cold-spot-area-analysis">Hot spot and Cold spot Area Analysis</a>
   <ul class="collapse">
@@ -1091,18 +1090,7 @@ attr(,"class")
 <span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>quadrant[DV <span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI<span class="sc">&lt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>quadrant[DV <span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI<span class="sc">&lt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">3</span>  </span>
 <span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>quadrant[DV <span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI<span class="sc">&gt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">4</span>      </span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>quadrant[localMI[,<span class="dv">5</span>]<span class="sc">&gt;</span>signif] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>quadrant_func <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode=</span><span class="st">"numeric"</span>,<span class="at">length=</span><span class="fu">nrow</span>(localMI_func))</span>
-<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>nga_wp<span class="sc">$</span>lag_func_points <span class="ot">&lt;-</span> <span class="fu">lag.listw</span>(rswm_q, nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt functional</span><span class="st">`</span>)</span>
-<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>DV_func <span class="ot">&lt;-</span> nga_wp<span class="sc">$</span>lag_func_points <span class="sc">-</span> <span class="fu">mean</span>(nga_wp<span class="sc">$</span>lag_func_points)     </span>
-<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>C_mI_func <span class="ot">&lt;-</span> localMI[,<span class="dv">1</span>] <span class="sc">-</span> <span class="fu">mean</span>(localMI[,<span class="dv">1</span>])    </span>
-<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>signif <span class="ot">&lt;-</span> <span class="fl">0.05</span>       </span>
-<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>quadrant[DV_func <span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI_func<span class="sc">&gt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>quadrant[DV_func <span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI_func<span class="sc">&lt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a>quadrant[DV_func <span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI_func<span class="sc">&lt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">3</span>  </span>
-<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>quadrant[DV_func <span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> C_mI_func<span class="sc">&gt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">4</span>      </span>
-<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a>quadrant[localMI[,<span class="dv">5</span>]<span class="sc">&gt;</span>signif] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>quadrant[localMI[,<span class="dv">5</span>]<span class="sc">&gt;</span>signif] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For each country/administrative region, LISA classification of the scores are assigned as follows:</p>
 <ul>
@@ -1163,41 +1151,8 @@ attr(,"class")
 </div>
 <section id="observation-3" class="level3">
 <h3 class="anchored" data-anchor-id="observation-3">Observation</h3>
-<p>It can be observed that regions with more than 100 non functional water points are clustered regions with relatively high values of the surrounding regions as observed from the LISA classification map. All the high-high values are the <strong>clusters where</strong> indicates high spatial correlation where non functional water points areas are clustered closely together. “Dark Blue”, low low regions are the clusters of low frequency of non functional spatial distribution of water points.</p>
+<p>It can be observed that regions with more than 100 non functional water points are clustered regions with relatively high values of the surrounding regions as observed from the LISA classification map. All the high-high values are the <strong>clusters where</strong> indicates high spatial correlation where non functional water points areas are clustered closely together. “Dark Blue”, low low regions are the clusters of low frequency of non functional spatial distribution of water points. That means north east region of Nigeria has high frequency of <strong>functional water points</strong> distribution.</p>
 </section>
-</section>
-<section id="plotting-lisa-map-functional" class="level2">
-<h2 class="anchored" data-anchor-id="plotting-lisa-map-functional">Plotting LISA Map (Functional)</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>func <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp)<span class="sc">+</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tm_fill</span>(<span class="st">"wpt functional"</span>,</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">style=</span> <span class="st">"jenks"</span>,</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">n=</span><span class="dv">6</span>,</span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">title=</span> <span class="st">"wpt functional"</span>)<span class="sc">+</span></span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tm_layout</span>(<span class="at">main.title=</span> <span class="st">"Functional WaterPoints"</span>)<span class="sc">+</span></span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)</span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>nga_wp.localMI_func<span class="sc">$</span>quadrant_func <span class="ot">&lt;-</span> quadrant</span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#ffffff"</span>, <span class="st">"#2c7bb6"</span>, <span class="st">"#abd9e9"</span>, <span class="st">"#fdae61"</span>, <span class="st">"#d7191c"</span>)</span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"insignificant"</span>, <span class="st">"low-low"</span>, <span class="st">"low-high"</span>, <span class="st">"high-low"</span>, <span class="st">"high-high"</span>)</span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>LISAmap_func <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp.localMI_func) <span class="sc">+</span></span>
-<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"quadrant_func"</span>, </span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"cat"</span>, </span>
-<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> colors[<span class="fu">c</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(quadrant)))<span class="sc">+</span><span class="dv">1</span>], </span>
-<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">labels =</span> clusters[<span class="fu">c</span>(<span class="fu">sort</span>(<span class="fu">unique</span>(quadrant)))<span class="sc">+</span><span class="dv">1</span>],</span>
-<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">popup.vars=</span> <span class="fu">c</span>(<span class="st">""</span>)) <span class="sc">+</span></span>
-<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_view</span>(<span class="at">set.zoom.limits =</span> <span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">17</span>)) <span class="sc">+</span></span>
-<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
-<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title=</span> <span class="st">"LISA map with classification"</span>)</span>
-<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(func, LISAmap_func, </span>
-<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">asp=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p><strong>Observations</strong>: All the high-high values are the <strong>clusters where</strong> indicates high spatial correlation where functional water points areas are clustered closely together. “Dark Blue”, low low regions are the clusters of low frequency of functional spatial distribution of water points.</p>
 </section>
 </section>
 <section id="hot-spot-and-cold-spot-area-analysis" class="level1">
@@ -1225,9 +1180,9 @@ attr(,"class")
 <p>Coordinates in separate dataframe is required. The mapping function applies a given function to each element of a vector and returns a vector of the same length. Our input vector will be the geometry column of us.bound. Our function will be <em>st_centroid()</em>. We will be using map_dbl variation of map from the purrr package.</p>
 <p>Calculation longitude, first value in each centroid; latitude, second value in each centroid; and then combining both longitude and latitude using the code chunk below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>longitude <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(nga_wp<span class="sc">$</span>geometry, <span class="sc">~</span><span class="fu">st_centroid</span>(.x)[[<span class="dv">1</span>]])</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>latitude <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(nga_wp<span class="sc">$</span>geometry, <span class="sc">~</span><span class="fu">st_centroid</span>(.x)[[<span class="dv">2</span>]])</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">cbind</span>(longitude, latitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>longitude <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(nga_wp<span class="sc">$</span>geometry, <span class="sc">~</span><span class="fu">st_centroid</span>(.x)[[<span class="dv">1</span>]])</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>latitude <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(nga_wp<span class="sc">$</span>geometry, <span class="sc">~</span><span class="fu">st_centroid</span>(.x)[[<span class="dv">2</span>]])</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">cbind</span>(longitude, latitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="determine-the-cut-off-distance" class="level3">
 <h3 class="anchored" data-anchor-id="determine-the-cut-off-distance">Determine the cut-off distance</h3>
@@ -1239,9 +1194,9 @@ attr(,"class")
 <li><p>Remove the list structure of the returned object by using <strong><em>unlist()</em></strong></p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>k1 <span class="ot">&lt;-</span> <span class="fu">knn2nb</span>(<span class="fu">knearneigh</span>(coords))</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>k1dists <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">nbdists</span>(k1, coords, <span class="at">longlat =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(k1dists)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>k1 <span class="ot">&lt;-</span> <span class="fu">knn2nb</span>(<span class="fu">knearneigh</span>(coords))</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>k1dists <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">nbdists</span>(k1, coords, <span class="at">longlat =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(k1dists)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   2.662  12.815  20.242  22.031  27.706  71.661 </code></pre>
@@ -1254,8 +1209,8 @@ attr(,"class")
 <p>Using <strong><em>dnearneigh(),</em></strong> distance weight matrix is computed as shown in the code chunk below.</p>
 <p>The functions <strong><em>dnearneigh()</em></strong> identifies neighbours of region points by Euclidean distance in the metric of the points between lower (greater than or equal to (changed from version 1.1-7)) and upper (less than or equal to) bounds, or with longlat = TRUE, by Great Circle distance in kilometers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>wm_d62 <span class="ot">&lt;-</span> <span class="fu">dnearneigh</span>(coords, <span class="dv">0</span>, <span class="dv">62</span>, <span class="at">longlat =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>wm_d62</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>wm_d62 <span class="ot">&lt;-</span> <span class="fu">dnearneigh</span>(coords, <span class="dv">0</span>, <span class="dv">62</span>, <span class="at">longlat =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>wm_d62</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Neighbour list object:
 Number of regions: 774 
@@ -1268,8 +1223,8 @@ Average number of links: 17.86822
 </div>
 <p>Next, using <strong><em>nb2listw()</em></strong> nb objects are converted into spatial weight objects.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>wm62_lw <span class="ot">&lt;-</span> <span class="fu">nb2listw</span>(wm_d62, <span class="at">style =</span> <span class="st">'B'</span>)</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wm62_lw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>wm62_lw <span class="ot">&lt;-</span> <span class="fu">nb2listw</span>(wm_d62, <span class="at">style =</span> <span class="st">'B'</span>)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wm62_lw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Characteristics of weights list object:
 Neighbour list object:
@@ -1305,8 +1260,8 @@ B 768 589824 13830 27660 1591400</code></pre>
 <p>More densely settled areas (usually the urban areas) tend to have more neighbors and the less densely settled areas (usually the rural counties) tend to have lesser neighbors.</p>
 <p>It is possible to control the numbers of neighbors directly using k-nearest neighbors, either accepting asymmetric neighbors or imposing symmetry as shown in the code chunk below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>knn <span class="ot">&lt;-</span> <span class="fu">knn2nb</span>(<span class="fu">knearneigh</span>(coords, <span class="at">k=</span><span class="dv">8</span>))</span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>knn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>knn <span class="ot">&lt;-</span> <span class="fu">knn2nb</span>(<span class="fu">knearneigh</span>(coords, <span class="at">k=</span><span class="dv">8</span>))</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>knn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Neighbour list object:
 Number of regions: 774 
@@ -1319,8 +1274,8 @@ Non-symmetric neighbours list</code></pre>
 <p>From the above summary report, the neighbor list is converted into non symmetric format with average of 8 neighbor links for each region.</p>
 <p>Next, <strong><em>nb2listw()</em></strong> is used to convert the nb object into spatial weights object.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>knn_lw <span class="ot">&lt;-</span> <span class="fu">nb2listw</span>(knn, <span class="at">style =</span> <span class="st">'B'</span>)</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(knn_lw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>knn_lw <span class="ot">&lt;-</span> <span class="fu">nb2listw</span>(knn, <span class="at">style =</span> <span class="st">'B'</span>)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(knn_lw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Characteristics of weights list object:
 Neighbour list object:
@@ -1357,9 +1312,9 @@ B 774 599076 6192 11152 201942</code></pre>
 <section id="gi-statistics-using-fixed-distance" class="level2">
 <h2 class="anchored" data-anchor-id="gi-statistics-using-fixed-distance">Gi statistics using fixed distance</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>fips <span class="ot">&lt;-</span> <span class="fu">order</span>(nga_wp<span class="sc">$</span>shapeName)</span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>gi.fixed <span class="ot">&lt;-</span> <span class="fu">localG</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>, wm62_lw)</span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>gi.fixed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>fips <span class="ot">&lt;-</span> <span class="fu">order</span>(nga_wp<span class="sc">$</span>shapeName)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>gi.fixed <span class="ot">&lt;-</span> <span class="fu">localG</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>, wm62_lw)</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>gi.fixed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] -2.660093336 -2.776740389 -1.123334979  0.150955122 -0.699687029
   [6]  3.377909001 -1.259359280 -2.005273450  1.299037089 -3.209256619
@@ -1582,8 +1537,8 @@ attr(,"class")
 <p>The Gi statistics is represented as a Z-score. Greater values represent a greater intensity of clustering and the direction (positive or negative) indicates high or low clusters.</p>
 <p>Joining the Gi values to their corresponding nga_wp sf data frame:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>nga_wp.gi <span class="ot">&lt;-</span> <span class="fu">cbind</span>(nga_wp, <span class="fu">as.matrix</span>(gi.fixed)) <span class="sc">%&gt;%</span></span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gstat_fixed =</span> as.matrix.gi.fixed.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>nga_wp.gi <span class="ot">&lt;-</span> <span class="fu">cbind</span>(nga_wp, <span class="fu">as.matrix</span>(gi.fixed)) <span class="sc">%&gt;%</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gstat_fixed =</span> as.matrix.gi.fixed.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Following steps were followed in the above code chunk:</p>
 <ul>
@@ -1596,21 +1551,21 @@ attr(,"class")
 <h2 class="anchored" data-anchor-id="mapping-gi-values-with-fixed-distance-weights">Mapping Gi values with fixed distance weights</h2>
 <p>The code chunk below shows the functions used to map the Gi values derived using fixed distance weight matrix.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>nonfunc <span class="ot">&lt;-</span> <span class="fu">qtm</span>(nga_wp, <span class="st">"wpt non-functional"</span>)</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>Gimap <span class="ot">&lt;-</span><span class="fu">tm_shape</span>(nga_wp.gi) <span class="sc">+</span></span>
-<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"gstat_fixed"</span>, </span>
-<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"pretty"</span>,</span>
-<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette=</span><span class="st">"-RdBu"</span>,</span>
-<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local Gi"</span>) <span class="sc">+</span></span>
-<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
-<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(nonfunc, Gimap, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>nonfunc <span class="ot">&lt;-</span> <span class="fu">qtm</span>(nga_wp, <span class="st">"wpt non-functional"</span>)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>Gimap <span class="ot">&lt;-</span><span class="fu">tm_shape</span>(nga_wp.gi) <span class="sc">+</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"gstat_fixed"</span>, </span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"pretty"</span>,</span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette=</span><span class="st">"-RdBu"</span>,</span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local Gi"</span>) <span class="sc">+</span></span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(nonfunc, Gimap, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Variable(s) "gstat_fixed" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid" width="672"></p>
+<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p><strong>Observations<br>
@@ -1620,10 +1575,10 @@ attr(,"class")
 <h2 class="anchored" data-anchor-id="gi-statistics-using-adaptive-distance">Gi statistics using adaptive distance</h2>
 <p>The code chunk below are used to compute the Gi values for wpt non functional water point areas by using an adaptive distance weight matrix <strong><em>(i.e knb_lw)</em>.</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>fips <span class="ot">&lt;-</span> <span class="fu">order</span>(nga_wp<span class="sc">$</span>shapeName)</span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>gi.adaptive <span class="ot">&lt;-</span> <span class="fu">localG</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>, knn_lw)</span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>nga_wp.gi <span class="ot">&lt;-</span> <span class="fu">cbind</span>(nga_wp, <span class="fu">as.matrix</span>(gi.adaptive)) <span class="sc">%&gt;%</span></span>
-<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gstat_adaptive =</span> as.matrix.gi.adaptive.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>fips <span class="ot">&lt;-</span> <span class="fu">order</span>(nga_wp<span class="sc">$</span>shapeName)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>gi.adaptive <span class="ot">&lt;-</span> <span class="fu">localG</span>(nga_wp<span class="sc">$</span><span class="st">`</span><span class="at">wpt non-functional</span><span class="st">`</span>, knn_lw)</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>nga_wp.gi <span class="ot">&lt;-</span> <span class="fu">cbind</span>(nga_wp, <span class="fu">as.matrix</span>(gi.adaptive)) <span class="sc">%&gt;%</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gstat_adaptive =</span> as.matrix.gi.adaptive.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="mapping-gi-values-with-the-adaptive-distance-weights" class="level2">
@@ -1632,24 +1587,24 @@ attr(,"class")
 <p>Using, choropleth mapping functions of <strong>tmap</strong> package location of hot spot and cold spot areas are visualized.</p>
 <p>The code chunk below shows the functions used to map the Gi values derived using fixed distance weight matrix.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>nonfunc <span class="ot">&lt;-</span> <span class="fu">qtm</span>(nga_wp, <span class="st">"wpt non-functional"</span>)</span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>Gimap <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp.gi) <span class="sc">+</span> </span>
-<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"gstat_adaptive"</span>, </span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"pretty"</span>, </span>
-<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette=</span><span class="st">"-RdBu"</span>, </span>
-<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local Gi"</span>) <span class="sc">+</span> </span>
-<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
-<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(nonfunc, </span>
-<span id="cb78-11"><a href="#cb78-11" aria-hidden="true" tabindex="-1"></a>             Gimap, </span>
-<span id="cb78-12"><a href="#cb78-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">asp=</span><span class="dv">1</span>, </span>
-<span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>nonfunc <span class="ot">&lt;-</span> <span class="fu">qtm</span>(nga_wp, <span class="st">"wpt non-functional"</span>)</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>Gimap <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(nga_wp.gi) <span class="sc">+</span> </span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="at">col =</span> <span class="st">"gstat_adaptive"</span>, </span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"pretty"</span>, </span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette=</span><span class="st">"-RdBu"</span>, </span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"local Gi"</span>) <span class="sc">+</span> </span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(nonfunc, </span>
+<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a>             Gimap, </span>
+<span id="cb77-12"><a href="#cb77-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">asp=</span><span class="dv">1</span>, </span>
+<span id="cb77-13"><a href="#cb77-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Variable(s) "gstat_adaptive" contains positive and negative values, so midpoint is set to 0. Set midpoint = NA to show the full spectrum of the color palette.</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="672"></p>
+<p><img src="Take_Home_Ex1_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <section id="observations-3" class="level3">
