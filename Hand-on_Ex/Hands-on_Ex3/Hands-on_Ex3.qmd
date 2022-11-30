@@ -1,0 +1,163 @@
+---
+title: "Geographical Segmentation with Spatially Constrained Clustering Techniques"
+date: November 30,2022
+editor: visual
+---
+
+# Overview
+
+In this hands-on Exercise, we will learn how to delineate homogeneous region by using geographically referenced multivariate data. There are two major analysis, namely:
+
+-   hierarchical cluster analysis; and
+
+-   spatially constrained cluster analysis.
+
+# Packages
+
+For this exercise, we will install and use the following R packages:
+
+-   **sf package: \
+    **1. to convert GIS polygon data into R\'s simple feature data.frame \
+    2. to convert simple feature data.frame into R\'s SpatialPolygonDataFrame object
+
+-   **hclust():** to perform cluster analysis
+
+-   **skater():** to perform spatially constrained cluster analysis
+
+-   **ggplot2 & tmap:** to visualize the analysis output
+
+The R packages needed for this exercise are as follows:
+
+-   Spatial data handling
+
+    -   **sf**, **rgdal** and **spdep**
+
+-   Attribute data handling
+
+    -   **tidyverse**, especially **readr**, **ggplot2** and **dplyr**
+
+-   Choropleth mapping
+
+    -   **tmap**
+
+-   Multivariate data visualisation and analysis
+
+    -   **coorplot**, **ggpubr**, and **heatmaply**
+
+-   Cluster analysis
+
+    -   **cluster**
+
+    -   **ClustGeo**
+
+# Getting Started 
+
+## The analytical question
+
+In geobusiness and spatial policy, it is common to group market and planning area into homogeneous regions using multivariate data. In this hands-on exercise, we are interested to delineate [Shan State](https://en.wikipedia.org/wiki/Shan_State), [Myanmar](https://en.wikipedia.org/wiki/Myanmar) into homogeneous regions by using multiple Information and Communication technology (ICT) measures, namely: Radio, Television, Land line phone, Mobile phone, Computer, and Internet at home.
+
+# The data
+
+Two data sets will be used in this study. They are:
+
+-   Myanmar Township Boundary Data (i.e. *myanmar_township_boundaries*) : This is a GIS data in ESRI shapefile format. It consists of township boundary information of Myanmar. The spatial data are captured in polygon features.
+
+-   *Shan-ICT.csv*: This is an extract of [**The 2014 Myanmar Population and Housing Census Myanmar**](https://myanmar.unfpa.org/en/publications/2014-population-and-housing-census-myanmar-data-sheet) at the township level.
+
+## Installing and Loading R packages
+
+Using the code chunk below all the necessary R packages are installed and loaded into R environment.
+
+```{r}
+pacman::p_load(rgdal, spdep, tmap, sf, 
+               ggpubr, cluster, factoextra, NbClust,
+               heatmaply, corrplot, psych, tidyverse)
+```
+
+# Data Import and Preparation
+
+## Importing Geospatial data into R environment
+
+Myanmar Township Boundary GIS data and its associated attrbiute table are imported into R environment
+
+The Myanmar Township Boundary GIS data is in ESRI shapefile format. It will be imported into R environment by using the [*st_read()*](https://www.rdocumentation.org/packages/sf/versions/0.7-2/topics/st_read) function of **sf** as shown in code chunk below
+
+```{r}
+shan_sf <- st_read(dsn = "data/data/geospatial/", 
+                   layer = "myanmar_township_boundaries") %>%
+  filter(ST %in% c("Shan (East)", "Shan (North)", "Shan (South)"))
+```
+
+We can view newly created dataframe, **"shan_sf"** by using the code chunk below
+
+```{r}
+shan_sf
+```
+
+Since *shan_sf* is conformed to tidy framework, we can also *glimpse()* to reveal the data type of it\'s fields
+
+```{r}
+glimpse(shan_sf)
+```
+
+## Importing aspatial data into R environment 
+
+Using the code chunk below, the csv file will be import using *read_csv* function of **readr** package.
+
+```{r}
+ict <- read_csv ("data/data/aspatial/Shan-ICT.csv")
+```
+
+The attribute data set, **"ict"** is saved in R's tibble data.frame format.
+
+The code chunk below reveal the summary statistics of *ict* data.frame.
+
+```{r}
+summary(ict)
+```
+
+From the summary report above, there are 55 observations and 11 variables in the tibble data frame.
+
+## Derive new variables using dplyr package
+
+The unit of measurement of the values are number of household. In general, the townships with relatively higher total number of households will also have higher number of households owning radio, TV, etc.
+
+In order to overcome this problem, we will derive the penetration rate of each ICT variable by using the code chunk below.
+
+```{r}
+ict_derived <- ict %>%
+  mutate(`RADIO_PR` = `Radio`/`Total households`*1000) %>%
+  mutate(`TV_PR` = `Television`/`Total households`*1000) %>%
+  mutate(`LLPHONE_PR` = `Land line phone`/`Total households`*1000) %>%
+  mutate(`MPHONE_PR` = `Mobile phone`/`Total households`*1000) %>%
+  mutate(`COMPUTER_PR` = `Computer`/`Total households`*1000) %>%
+  mutate(`INTERNET_PR` = `Internet at home`/`Total households`*1000) %>%
+  rename(`DT_PCODE` =`District Pcode`,`DT`=`District Name`,
+         `TS_PCODE`=`Township Pcode`, `TS`=`Township Name`,
+         `TT_HOUSEHOLDS`=`Total households`,
+         `RADIO`=`Radio`, `TV`=`Television`, 
+         `LLPHONE`=`Land line phone`, `MPHONE`=`Mobile phone`,
+         `COMPUTER`=`Computer`, `INTERNET`=`Internet at home`) 
+```
+
+Now, let's review the summary statistics
+
+```{r}
+summary(ict_derived)
+```
+
+It can be observed, 6 new fields have been added into the data frame table.
+
+# Exploratory Data Analysis (EDA)
+
+## EDA using statistical graphics
+
+## 
+
+
+
+
+
+
+**\
+**
