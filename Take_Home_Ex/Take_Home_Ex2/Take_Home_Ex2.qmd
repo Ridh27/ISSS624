@@ -1,7 +1,7 @@
 ---
 title: "Regionalisation of Multivariate Water Point Attributes with Non-spatially Constrained and Spatially Constrained Clustering Methods"
 author: "Ridhima Bansal"
-published: "December 09,2022"
+date: "December 10,2022"
 editor: visual
 ---
 
@@ -196,7 +196,7 @@ freq(data=wpt_nonfunctional,
      input = 'status_cle')
 ```
 
-![](images/paste-A449A5C7.png)Extracting Main Water Point Technology (Hand Pump)
+## ![](images/paste-A449A5C7.png)Extracting Main Water Point Technology (Hand Pump)
 
 `filter()` of dplyr is used to select water points with hand pump as a technology used for extracting water points.
 
