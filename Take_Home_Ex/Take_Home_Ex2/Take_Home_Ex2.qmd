@@ -881,7 +881,7 @@ heatmaply(normalize(nigeria_ict_Kmat),
 
 Based on the heatmap plot, we can infer that area of concern with a higher average of `pct_functional` compare to `pct_non_functional water points`. The next area of concern could be high average of pct_rural areas with very high values as compared to other indicators.
 
-## Visualizing of K-Means Cluster using Parallel Plot 
+## Visualizing of K-Means Cluster using Parallel Plot
 
 ```{r}
 ggparcoord(data = nigeria_K,
