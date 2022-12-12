@@ -77,10 +77,28 @@ Before starting the analysis, appropriate packages are imported into the R envir
 
 -   **funModeling**: used for Exploratory data analysis, data preparation and model performance
 
+-   **coorplot**, **ggpubr**, and **heatmaply :** used forMultivariate data visualization and analysis
+
+-   **rgdal:** used for spatial data handling
+
+-   **cluster:** used for cluster analysis
+
+-   **factoextra:** used for extract and visualize the output of multivariate data analyses.
+
+-   **nbClust:** used fordetermining the Best Number of Clusters in a Data Set.
+
+-   **psych:** used for a general purpose toolbox for personality, psychometric theory and experimental psychology.
+
+-   **ClustGeo:** used for Ward-like hierarchical clustering algorithm including spatial/geographical constraints.
+
+-   **patwork**: used to combine separate ggplots into the same graphic
+
+-   hrbrthemes: used to provide typography-centric themes and theme components for ggplot2.
+
 ```{r}
 pacman::p_load(sf, spdep, tmap, tidyverse,funModeling,ggpubr,corrplot,rgdal, 
-               ggpubr, cluster, factoextra, NbClust,
-               heatmaply, psych, ClustGeo, ggparcoord)
+               cluster, factoextra, NbClust,
+               heatmaply, psych, ClustGeo, GGally, patchwork, hrbrthemes)
 ```
 
 # Data Import
@@ -351,7 +369,7 @@ ggarrange(Func,pct_func,nonfunc,pct_nonfunc,
 
 It can be observed that representation of **number of functional and non functional water points are left skewed** whereas it can be observed that after calculating **percentage respectively, data is approximately normal**.
 
-### Usage Capacity 
+### Usage Capacity
 
 ***Boxplot*** is useful to identify if there are any outliers or not.
 
@@ -382,7 +400,7 @@ ggarrange(cap_less,pct_cap_less,cap_more,pct_cap_more,
 
 From the above boxplots, it can be observed that there are many outlier regions with usage capacity of less than 1000 and equal/more than 1000. But if the percentage of usage capacity is plotted on the boxplot, it can be observed from the second column that there are no outliers. Therefore, it is recommended to use percentage of usage capacity for further analysis.
 
-### Rural Areas 
+### Rural Areas
 
 Using the code chunk below, we will now plot the distribution of variables(ie number and percentage of rural areas in Nigeria).
 
@@ -458,7 +476,7 @@ tm_shape(wp_nga) +
 
 From the above maps, it can be clearly observed the difference of regions with total water points and percentage of handpump in each region. It can be true to state that regions with high percentage of handpumps may be the regions with low number of water points,hence,some regions have only or high percentage of handpump as a water point technology as compared with other regions.
 
-### Rural Areas in Nigeria 
+### Rural Areas in Nigeria
 
 To have a quick look and comparison at the distribution of number, percentage of rural areas in Nigeria region and total water points, a choropleth map will be plotted.
 
@@ -507,10 +525,9 @@ tmap_arrange(TT_waterpoints.map,pct_rural.map,
 
 ### Observation
 
-After plotting the percentage of rural areas, it can be observed that the regions with high percentage of rural areas may have lower number of total water points in the respective region.
-It can be said that there are very high percentage of rural areas in the Nigeria as compared to the urban areas. This implies the country is poor country, struggling for basic necessities.
+After plotting the percentage of rural areas, it can be observed that the regions with high percentage of rural areas may have lower number of total water points in the respective region. It can be said that there are very high percentage of rural areas in the Nigeria as compared to the urban areas. This implies the country is poor country, struggling for basic necessities.
 
-# Correlation Analysis 
+# Correlation Analysis
 
 Before performing cluster analysis, it is important to check whether variables are highly correlated or not. In this section, we will learn how to use ***corrplot.mixed()*** function of ***corrplot*** package to visualize and analyse the correlation of the input variables.
 
@@ -565,7 +582,7 @@ wp_nga$shapeName[c(94,95,304,305,355,356,519,546,547,693,694)] <- c("bassa kogi"
 length((wp_nga$shapeName[ wp_nga$shapeName %in% wp_nga$shapeName[duplicated(wp_nga$shapeName)] ]))
 ```
 
-## Extracting Cluster Variable 
+## Extracting Cluster Variable
 
 The code chunk below will be used to extract the clustering variables from the wp_nga simple feature object into data.frame.
 
@@ -590,7 +607,7 @@ nigeria_ict <- select(cluster_vars, c(2:8))
 head(nigeria_ict, 10)
 ```
 
-## Computing Proximity Matrix 
+## Computing Proximity Matrix
 
 We will compute proximity matrix using ***dist() in R.***
 
@@ -602,7 +619,7 @@ The code chunk below is used to compute the proximity matrix using *euclidean* m
 proxmat <- dist(nigeria_ict, method = 'euclidean')
 ```
 
-## Computing Hierarchical Clustering 
+## Computing Hierarchical Clustering
 
 In this exercise, ***hclust()*** will be used for hierarchical clustering.
 
@@ -619,6 +636,7 @@ plot(hclust_ward, cex = 0.6)
 ```
 
 ## 
+
 Determining Optimal Clusters
 
 Another technical challenge face by data analyst in performing clustering analysis is to determine the optimal clusters to retain.
@@ -660,11 +678,11 @@ fviz_gap_stat(gap_stat)
 
 With reference to the gap statistic graph above, the recommended number of cluster to retain is 1. However, it is not logical to retain only one cluster. By examine the gap statistic graph, the 5-cluster gives the largest gap statistic and should be the next best cluster to pick.
 
-## Interpreting the dendrograms 
+## Interpreting the dendrograms
 
 In the **dendrogram** displayed above, each leaf corresponds to one observation. As we move up the tree, observations that are similar to each other are combined into branches, which are themselves fused at a higher height.
 
-It\'s also possible to draw the dendrogram with a border around the selected clusters by using ***rect.hclust()*** of R stats. The argument *border* is used to specify the border colors for the rectangles.
+It's also possible to draw the dendrogram with a border around the selected clusters by using ***rect.hclust()*** of R stats. The argument *border* is used to specify the border colors for the rectangles.
 
 ```{r}
 plot(hclust_ward, cex = 0.6)
@@ -673,7 +691,7 @@ rect.hclust(hclust_ward,
             border = 2:5)
 ```
 
-## Visually-driven hierarchical clustering analysis 
+## Visually-driven hierarchical clustering analysis
 
 Using ***heatmaply()*** package, visually driven hierarchical clustering analysis is performed. With **heatmaply**, we are able to build both highly interactive cluster heatmap or static cluster heatmap.
 
@@ -704,7 +722,7 @@ heatmaply(normalize(nigeria_ict_mat),
           )
 ```
 
-## Mapping the clusters formed 
+## Mapping the clusters formed
 
 From dendrogram , we decided to retain only 5 clusters. ***cutree()*** of R Base will be used in the code chunk below to derive a 5-cluster model.
 
@@ -725,23 +743,45 @@ nigeria_sf_cluster <- cbind(wp_nga, as.matrix(groups)) %>%
   rename(`CLUSTER`=`as.matrix.groups.`)
 ```
 
+**Parallel Plot**
+
+Using the below code chunk, parallel plot is plotted
+
+```{r}
+ggparcoord(data = nigeria_sf_cluster,
+           columns = c(7:10,12,14,16,18),
+           scale = "std",
+           alphaLines = 0.3,
+           boxplot = TRUE,
+           title = "Multiple Parallel Coordinates Plots of Hierarchical variables for Nigeria Water Points") +
+  facet_grid(~ `CLUSTER`) +
+   scale_color_viridis(discrete=TRUE) +
+  theme(
+    plot.title = element_text(size=10),
+    axis.text.x = element_text(angle = 90)
+  ) 
+  
+```
+
 Using the below code chunk, choropleth map is plotted
 
 ```{r}
 qtm(nigeria_sf_cluster, "CLUSTER")
 ```
 
-## Observations from Hierarchical Clustering 
+## Observations from Hierarchical Clustering
 
 Based on the heatmap plot, we can infer that area of concern with a higher average of `pct_functional` compare to `pct_non_functional water points`. The next area of concern could be high average of pct_rural areas. From the map, we can analyse **Cluster 1** should be an area of concern subsequently followed by **Cluster 3**.
 
 The choropleth map above reveals the clusters are very fragmented. The is one of the major limitation when non-spatial clustering algorithm such as hierarchical cluster analysis method is used.We will substantiate all the claims in the subsequent section.
 
-# K Means Clustering 
+Based on parallel plot, we can interpret that **cluster 2** is the area of concern with pct_non_functional water points higher than the pct_functional water points. The next cluster of concern will be **Cluster 1.**
+
+# K Means Clustering
 
 It is a unsupervised machine learning technique which it aimsat segmenting the data in such a way that the within-cluster variation is minimized. K-Means clustering is also often known as a Partition Clustering Method. We will now analyse the difference between K-means and Hierarchical Clustering.
 
-## Computing optimal K-Means Clustering Values 
+## Computing optimal K-Means Clustering Values
 
 Below is the code chunk to obtain the optimal cluster value.
 
@@ -757,7 +797,7 @@ fviz_gap_stat(gap_statK)
 
 With reference to the gap statistic graph above, the recommended number of cluster to retain is 1. However, it is not logical to retain only one cluster. By examine the gap statistic graph, the 6-cluster gives the largest gap statistic and should be the next best cluster to pick.
 
-## Computing of K-Means clustering 
+## Computing of K-Means clustering
 
 ```{r}
 cluster_Kvars <- wp_nga %>%
@@ -841,13 +881,34 @@ heatmaply(normalize(nigeria_ict_Kmat),
 
 Based on the heatmap plot, we can infer that area of concern with a higher average of `pct_functional` compare to `pct_non_functional water points`. The next area of concern could be high average of pct_rural areas with very high values as compared to other indicators.
 
-# Spatially Constrained Clustering 
+## Visualizing of K-Means Cluster using Parallel Plot 
+
+```{r}
+ggparcoord(data = nigeria_K,
+           columns = c(8:11,13,15,17,19),
+           scale = "std",
+           alphaLines = 0.3,
+           boxplot = TRUE,
+           title = "Multiple Parallel Coordinates Plots of K means CLustering for Nigeria Water Points") +
+  facet_grid(~ `KM_Cluster`) +
+   scale_color_viridis(discrete=TRUE) +
+  theme(
+    plot.title = element_text(size=10),
+    axis.text.x = element_text(angle = 90)
+  ) 
+```
+
+### Observations
+
+From the above parallel plot results, we can infer that **Cluster 4** and **Cluster 5** are areas of concerns with a higher average of pct_nonfunctional compared to pct_functional.
+
+# Spatially Constrained Clustering
 
 In this section, we will learn how to derive spatially constrained cluster by using **skater()** method of ***spdep*** package. This method has number of benefits in real-world applications that require breaking geographies into discrete sections (regionalization), such as building communities, planning areas, amenity zones, logistical units, or even setting up experiments with real-world geographic limits.
 
 We will now explore 2 types spatially constrained clustering methods:
 
-1.  Spatial \'K\'luster Analysis by Tree Edge Removal(SKATER)
+1.  Spatial 'K'luster Analysis by Tree Edge Removal(SKATER)
 2.  ClustGeo Method
 
 ## SKATER Approach
@@ -856,7 +917,7 @@ The **Skater** algorithm is based on a connectivity graph to express spatial rel
 
 ### Converting into Spatial Polygon Data Frames
 
-First, we need to convert \"**wp_nga\" into spatial data frame.** This is because SKATER function only support **sp** objects such as SpatialPolygonDataFrame.
+First, we need to convert "**wp_nga" into spatial data frame.** This is because SKATER function only support **sp** objects such as SpatialPolygonDataFrame.
 
 The code chunk below is process to covert the data set into spatial data frame
 
@@ -865,9 +926,9 @@ nigeria_sp <- as_Spatial(wp_nga)
 nigeria_sp
 ```
 
-### Computing Neighbor List 
+### Computing Neighbor List
 
-Using, ***\"ply2nd()\" of spdep***  package of R, we will compute neighbor list from polygon list.
+Using, ***"ply2nd()" of spdep***  package of R, we will compute neighbor list from polygon list.
 
 ```{r}
 nigeria.nb <- poly2nb(nigeria_sp)
@@ -889,7 +950,7 @@ plot(nigeria.nb,
 
 ### Calculating the edge cost
 
-Cost of each edge is computed using ***\"nbcosts()\" of spdep*** package.It is the distance between it nodes. This function compute this distance using a data.frame with observations vector in each node. For each observation, it is the notion of a generalised weight for a spatial weights matrix.
+Cost of each edge is computed using ***"nbcosts()" of spdep*** package.It is the distance between it nodes. This function compute this distance using a data.frame with observations vector in each node. For each observation, it is the notion of a generalised weight for a spatial weights matrix.
 
 Next, we will convert the neighbour list to a list weights object by specifying the just computed ***lcosts*** as the weights.Note that we specify the *style* as **B** to make sure the cost values are not row-standardised.
 
@@ -915,7 +976,7 @@ summary(nigeria.w)
 
 ### Computing minimum spanning tree
 
-Using, ***\"mstree()\" of spdep package*** the minimum spanning tree is computed.
+Using, ***"mstree()" of spdep package*** the minimum spanning tree is computed.
 
 ```{r}
 nigeria.mst <- mstree(nigeria.w)
@@ -923,14 +984,13 @@ class(nigeria.mst)        #to check class
 dim(nigeria.mst)          #to check dimensions
 ```
 
-**Note** that the dimension is 772 and not 773. This is because the **minimum spanning tree consists on n-1 edges (links)** in order to traverse all the nodes.
-We can display the content of *shan.mst* by using *head()* as shown in the code chunk below.
+**Note** that the dimension is 772 and not 773. This is because the **minimum spanning tree consists on n-1 edges (links)** in order to traverse all the nodes. We can display the content of *shan.mst* by using *head()* as shown in the code chunk below.
 
 ```{r}
 head(nigeria.mst)
 ```
 
-## Computing SKATER clustering 
+## Computing SKATER clustering
 
 The code chunk below compute the spatially constrained cluster using ***skater()*** of **spdep** package. For this we will use clusters computed through hierarchical clustering technique.
 
@@ -962,8 +1022,7 @@ ccs5  #cluster assignment
 table(ccs5)  #obersevation in each cluster
 ```
 
-It can be **observed** that maximum number of observations are in Cluster 2 followed by Cluster 1.
-**Pruned tree** that shows the five clusters on top of the township area can be plotted using the code chunk below.
+It can be **observed** that maximum number of observations are in Cluster 2 followed by Cluster 1. **Pruned tree** that shows the five clusters on top of the township area can be plotted using the code chunk below.
 
 ```{r}
 plot(nigeria_sp, border=gray(.5))
@@ -1010,9 +1069,32 @@ tmap_arrange(hclust.map, shclust.map,
 
 ### Observations
 
-From the above results, we can **infer** that **Cluster 1** and **Cluster 2** are areas of concerns with a higher average of water points in Nigeria. It is also observed that in \"Hierarchical Clustering\" map regions for a particular cluster are scattered all over. For eg: Cluster 2 regions are scattered over north, south west and south regions. Whereas if we observe the \"Spatially constrained hierarchical clustering\", for each cluster regions are spatially clustered together.
+From the above results, we can **infer** that **Cluster 1** and **Cluster 2** are areas of concerns with a higher average of water points in Nigeria. It is also observed that in "Hierarchical Clustering" map regions for a particular cluster are scattered all over. For eg: Cluster 2 regions are scattered over north, south west and south regions. Whereas if we observe the "Spatially constrained hierarchical clustering", for each cluster regions are spatially clustered together.
 
-## ClustGeo 
+## Visualizing the SKATER clusters using Parallel Plot
+
+Using the code chunk below, parallel plots are plotted
+
+```{r}
+ggparcoord(data = nigeria_sf_spatialcluster,
+           columns = c(7:10,12,14,16,18),
+           scale = "std",
+           alphaLines = 0.3,
+           boxplot = TRUE,
+           title = "Multiple Parallel Coordinates Plots of SKATER CLustering for Nigeria Water Points") +
+  facet_grid(~ `SP_CLUSTER`) +
+   scale_color_viridis(discrete=TRUE) +
+  theme(
+    plot.title = element_text(size=10),
+    axis.text.x = element_text(angle = 90)
+  ) 
+```
+
+### Observations
+
+From the above parallel plot, it can be infered that **Cluster 3, Cluster 4 and Cluster 5** are the areas of concern as on an average pct_functional water points are less than the pct_non_functional water points in Nigeria.
+
+## ClustGeo
 
 In this section, using ***ClustGeo*** packages we will perform non-spatially constrained hierarchical cluster analysis and spatially constrained cluster analysis. ClustGeo packages, provides a Ward-like hierarchical clustering algorithm called `hclustgeo()` including spatial/geographical constraints and is designed to support the need of performing spatially constrained cluster analysis.
 
@@ -1053,7 +1135,7 @@ nigeria_sf_Gcluster <- cbind(wp_nga, as.matrix(groups)) %>%
 qtm(nigeria_sf_Gcluster, "CLUSTER")
 ```
 
-### Observations 
+### Observations
 
 From the above results, we can infer that **Cluster 2** can be deemed as an area of concern with high average of water points. Whereas **Cluster** **5** is area with less of concern.
 
@@ -1069,8 +1151,6 @@ More clustering techniques, like normal mixtures, can be performed for more deta
 
 There can be more spatially clustering methods for the analysis of the area. Also, for more detailed analysis, geographical weighted regression spatial technique can be used in which non-stationary variables are taken into consideration (e.g., climate; demographic factors; physical environment characteristics) and models the local relationships between these independent variables and an outcome of interest (also known as dependent variable).
 
-We will explore this technique in our next take home exercise.
-
 # **Acknowledgement**
 
 Sincerely thanks to Prof Kam, for all the Geospatial Analytics lecture notes and Hands on Exercise materials- taken reference from them, from data importing to data wrangling to Geospatial data visualisation.
@@ -1084,8 +1164,5 @@ Below are the resources used for the analysis for this Take Home Exercise . Spec
 -   [Peer Sample Submission- Data Wrangling](https://jordan-isss624-geospatial.netlify.app/)
 
 # 
-
-
-
 
 ### 
