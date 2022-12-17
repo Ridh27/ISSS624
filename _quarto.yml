@@ -22,6 +22,8 @@ website:
             href: In-class_Ex/In-Class_Ex1/In-Class_Ex1.qmd
           - text: In-Class Exercise 2
             href: In-class_Ex/In-Class_Ex2/In-Class_Ex2.qmd
+          - text: In-Class Exercise 3
+            href: In-class_Ex/In-Class_Ex3/In-Class_Ex3.qmd
       - text: Take Home Exercise  
         menu: 
           - text: Take-Home Exercise 1
